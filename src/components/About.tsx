@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="nosotros" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           {/* Imagen */}
@@ -17,9 +17,9 @@ const About = () => {
 
           {/* Contenido */}
           <div className="md:w-1/2">
-            <h2 className="text-4xl md:text-5xl font-tektur text-gray-900 mb-6">
+            <h1 className="text-4xl font-tektur font-bold mb-6 text-gray-800">
               Sobre Nosotros
-            </h2>
+            </h1>
             <p className="text-xl text-gray-700 mb-8 leading-relaxed font-roboto">
               Somos una empresa especializada en desarrollo web y sistemas de administración de datos. 
               Nuestro equipo de expertos crea soluciones tecnológicas a medida que transforman ideas 

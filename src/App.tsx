@@ -1,24 +1,27 @@
-import Header from './components/Header'
-import Hero from './components/Hero'
-import About from './components/About'
-import WebProjects from './components/WebProjects'
-import Footer from './components/Footer'
-import WebServices from './components/WebServices'
+import Header from './components/Header';
+import Hero from './components/Hero';
+import About from './components/About';
+import WebServices from './components/WebServices';
+import WebProjects from './components/WebProjects';
+import Footer from './components/Footer';
+import Systems from './components/Systems';
+import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen bg-gray-50">
       <Header />
-      <main className="flex-grow">
+      <main>
         <Hero />
         <About />
-        <WebProjects />
+        <Systems />
         <WebServices />
-        {/* Add other sections here */}
+        <WebProjects />
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
