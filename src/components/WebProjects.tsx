@@ -60,10 +60,10 @@ const WebProjects: React.FC = () => {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center space-x-6">
-                  <a href="#" className="text-white hover:text-blue-400 transition-colors transform hover:scale-110">
+                  <a href="https://github.com/adonis386/estudiotatuajes" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-400 transition-colors transform hover:scale-110">
                     <FaGithub className="text-3xl" />
                   </a>
-                  <a href="#" className="text-white hover:text-blue-400 transition-colors transform hover:scale-110">
+                  <a href="https://jolly-brigadeiros-76a0f4.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-400 transition-colors transform hover:scale-110">
                     <FaExternalLinkAlt className="text-3xl" />
                   </a>
                 </div>

@@ -43,12 +43,6 @@ const Header: React.FC = () => {
               Nosotros
             </button>
             <button
-              onClick={() => scrollToSection('#sistemas')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Sistemas
-            </button>
-            <button
               onClick={() => scrollToSection('#servicios')}
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
             >
