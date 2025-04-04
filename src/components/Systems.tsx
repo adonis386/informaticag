@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCashRegister, FaTools, FaChartLine, FaUsers, FaCog, FaDatabase } from 'react-icons/fa';
+import { FaCashRegister, FaTools, FaChartLine, FaUsers, FaCog, FaDatabase, FaWhatsapp } from 'react-icons/fa';
 
 const Systems: React.FC = () => {
   return (
@@ -82,10 +82,16 @@ const Systems: React.FC = () => {
                   <span className="text-gray-600">Base de datos optimizada</span>
                 </div>
               </div>
-              <div className="mt-8 text-center">
-                <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-300">
-                  Solicitar Consulta
-                </button>
+              <div className="text-center mt-12">
+                <a
+                  href="https://wa.link/9fgi2d"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-300 text-lg font-medium group"
+                >
+                  <span className="mr-2">Solicitar Consulta</span>
+                  <FaWhatsapp className="text-xl group-hover:scale-110 transition-transform" />
+                </a>
               </div>
             </div>
           </div>
