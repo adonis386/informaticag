@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import Header from './components/Header';
-
+import WhatsAppButton from './components/WhatsAppButton';
 
 // Lazy loading de componentes
 const Hero = lazy(() => import('./components/Hero'));
@@ -10,7 +10,6 @@ const WebServices = lazy(() => import('./components/WebServices'));
 const WebProjects = lazy(() => import('./components/WebProjects'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const Footer = lazy(() => import('./components/Footer'));
-const WhatsAppButton = lazy(() => import('./components/WhatsAppButton'));
 
 // Componente de loading
 const LoadingSpinner = () => (
@@ -33,8 +32,8 @@ function App() {
           <ContactForm />
         </main>
         <Footer />
-        <WhatsAppButton />
       </Suspense>
+      <WhatsAppButton />
     </div>
   );
 }
