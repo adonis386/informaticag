@@ -2,14 +2,26 @@ import { useState, useEffect } from 'react';
 
 const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Detectar si es móvil
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     // Precargar el video
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   return (
@@ -27,18 +39,30 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className={`absolute top-0 left-0 w-full h-full scale-150 transition-opacity duration-1000 ${
+        <div className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
           isLoading ? 'opacity-0' : 'opacity-100'
         }`}>
-          <iframe
-            src="https://player.vimeo.com/video/1071614866?h=aab390ed2d&background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&dnt=1&quality=1080p&preload=auto"
-            className="w-full h-full"
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            style={{
-              filter: 'brightness(0.6)',
-            }}
-          />
+          {isMobile ? (
+            // Imagen de fondo para móviles
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: 'url("https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
+                filter: 'brightness(0.6)'
+              }}
+            />
+          ) : (
+            // Video para desktop
+            <iframe
+              src="https://player.vimeo.com/video/1071614866?h=aab390ed2d&background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&dnt=1&quality=1080p&preload=auto"
+              className="w-full h-full scale-150"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              style={{
+                filter: 'brightness(0.6)',
+              }}
+            />
+          )}
         </div>
         
         {/* Overlay con gradiente */}
@@ -48,15 +72,15 @@ const Hero = () => {
       {/* Content */}
       <div className="relative h-full flex items-center justify-center text-white">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="font-tektur text-5xl md:text-7xl mb-6 text-shadow-lg">
-            Soluciones Digitales
+          <h1 className="font-tektur text-4xl sm:text-5xl md:text-7xl mb-6 text-shadow-lg">
+            Soluciones digitales
           </h1>
-          <p className="font-roboto text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-shadow">
-            Transformamos ideas en realidad digital con soluciones tecnológicas a la medida
+          <p className="font-roboto text-lg sm:text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-shadow">
+            Transformamos visitantes en clientes con soluciones web rápidas y efectivas
           </p>
           <a
             href="#servicios"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-roboto px-8 py-3 rounded-lg transition-colors text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-roboto px-6 sm:px-8 py-3 rounded-lg transition-colors text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
           >
             Descubre Nuestros Servicios
           </a>

@@ -19,7 +19,7 @@ const Header: React.FC = () => {
           {/* Logo y Título */}
           <div className="flex items-center space-x-4">
             <img
-              src="/assets/logo-1.jpeg"
+              src="/assets/logo-1-Photoroom.png"
               alt="Informática González"
               className="h-16 w-16 rounded-full object-cover"
             />

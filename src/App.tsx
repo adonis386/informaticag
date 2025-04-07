@@ -1,12 +1,14 @@
 import { lazy, Suspense } from 'react';
 import Header from './components/Header';
 
+
 // Lazy loading de componentes
 const Hero = lazy(() => import('./components/Hero'));
 const About = lazy(() => import('./components/About'));
 const Systems = lazy(() => import('./components/Systems'));
 const WebServices = lazy(() => import('./components/WebServices'));
 const WebProjects = lazy(() => import('./components/WebProjects'));
+const ContactForm = lazy(() => import('./components/ContactForm'));
 const Footer = lazy(() => import('./components/Footer'));
 const WhatsAppButton = lazy(() => import('./components/WhatsAppButton'));
 
@@ -28,6 +30,7 @@ function App() {
           <Systems />
           <WebServices />
           <WebProjects />
+          <ContactForm />
         </main>
         <Footer />
         <WhatsAppButton />
