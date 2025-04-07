@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaServer, FaLaptop, FaDatabase, FaShieldAlt, FaUsers, FaWhatsapp, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const Systems: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
 
+  const checkDesktop = useCallback(() => {
+    setIsDesktop(window.innerWidth > 1024);
+  }, []);
+
   useEffect(() => {
-    const checkDesktop = () => {
-      setIsDesktop(window.innerWidth > 1024);
-    };
-    
     checkDesktop();
     window.addEventListener('resize', checkDesktop);
     return () => window.removeEventListener('resize', checkDesktop);
-  }, []);
+  }, [checkDesktop]);
 
   const services = [
     {
@@ -68,15 +68,15 @@ const Systems: React.FC = () => {
     }
   ];
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % services.length);
-  };
+  }, [services.length]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + services.length) % services.length);
-  };
+  }, [services.length]);
 
-  const renderService = (service: typeof services[0], index: number) => {
+  const renderService = useCallback((service: typeof services[0], index: number) => {
     const Icon = service.icon;
     const colorClasses = {
       blue: { bg: 'bg-blue-100', text: 'text-blue-600', border: 'border-blue-500' },
@@ -110,7 +110,7 @@ const Systems: React.FC = () => {
         </div>
       </div>
     );
-  };
+  }, []);
 
   return (
     <section id="servicios" className="py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -130,6 +130,7 @@ const Systems: React.FC = () => {
               <button
                 onClick={prevSlide}
                 className="p-2 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-colors"
+                aria-label="Servicio anterior"
               >
                 <FaChevronLeft className="text-gray-600 text-xl" />
               </button>
@@ -141,6 +142,7 @@ const Systems: React.FC = () => {
               <button
                 onClick={nextSlide}
                 className="p-2 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-colors"
+                aria-label="Siguiente servicio"
               >
                 <FaChevronRight className="text-gray-600 text-xl" />
               </button>
@@ -168,4 +170,4 @@ const Systems: React.FC = () => {
   );
 };
 
-export default Systems;
+export default React.memo(Systems);

@@ -61,6 +61,7 @@ const Hero = () => {
               style={{
                 filter: 'brightness(0.6)',
               }}
+              loading="lazy"
             />
           )}
         </div>
@@ -73,7 +74,7 @@ const Hero = () => {
       <div className="relative h-full flex items-center justify-center text-white">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-tektur text-4xl sm:text-5xl md:text-7xl mb-6 text-shadow-lg">
-            Software Empresarial a la Medida
+            Software Empresarial a Medida
           </h1>
           <p className="font-roboto text-lg sm:text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-shadow">
             Soluciones tecnológicas seguras y escalables para empresas, instituciones y startups
