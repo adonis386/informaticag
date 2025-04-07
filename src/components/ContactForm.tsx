@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaPaperPlane, FaUser, FaEnvelope, FaPhone, FaBuilding } from 'react-icons/fa';
 import { submitContactForm } from '../api/contact';
-import { 
-  sanitizeInput, 
+import {  
   isValidEmail, 
   isValidPhone, 
   generateCSRFToken, 
@@ -38,7 +37,7 @@ const ContactForm = () => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: sanitizeInput(value)
+      [name]: value // Ya no sanitizamos el input aquí para permitir espacios
     }));
     // Limpiar error de validación cuando el usuario escribe
     if (validationErrors[name]) {
@@ -260,15 +259,30 @@ const ContactForm = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-roboto px-8 py-3 rounded-lg transition-colors text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                className={`inline-flex items-center justify-center px-8 py-3 rounded-lg text-white font-medium transition-colors ${
+                  isSubmitting
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-blue-600 hover:bg-blue-700'
+                }`}
               >
                 {isSubmitting ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Enviando...
+                  </>
                 ) : (
-                  <FaPaperPlane className="mr-2" />
+                  <>
+                    <FaPaperPlane className="mr-2" />
+                    Enviar Mensaje
+                  </>
                 )}
-                {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
               </button>
+              <p className="mt-4 text-sm text-gray-500">
+                * Nos pondremos en contacto contigo en un máximo de 10 minutos
+              </p>
             </div>
 
             {submitStatus === 'success' && (

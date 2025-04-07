@@ -73,17 +73,25 @@ const Hero = () => {
       <div className="relative h-full flex items-center justify-center text-white">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-tektur text-4xl sm:text-5xl md:text-7xl mb-6 text-shadow-lg">
-            Soluciones digitales
+            Software Empresarial a la Medida
           </h1>
           <p className="font-roboto text-lg sm:text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-shadow">
-            Transformamos visitantes en clientes con soluciones web rápidas y efectivas
+            Soluciones tecnológicas seguras y escalables para empresas, instituciones y startups
           </p>
-          <a
-            href="#servicios"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-roboto px-6 sm:px-8 py-3 rounded-lg transition-colors text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
-          >
-            Descubre Nuestros Servicios
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#servicios"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-roboto px-6 sm:px-8 py-3 rounded-lg transition-colors text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
+            >
+              Ver Servicios
+            </a>
+            <a
+              href="#contacto"
+              className="inline-block bg-transparent border-2 border-white hover:bg-white/10 text-white font-roboto px-6 sm:px-8 py-3 rounded-lg transition-colors text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
+            >
+              Solicitar Consulta
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@
 export const sanitizeInput = (input: string): string => {
   return input
     .replace(/<[^>]*>/g, '') // Eliminar etiquetas HTML
-    .replace(/[&<>"']/g, '') // Eliminar caracteres especiales
+    .replace(/[&<>"']/g, '') // Eliminar caracteres especiales peligrosos
     .trim();
 };
 
