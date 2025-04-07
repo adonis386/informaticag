@@ -26,9 +26,11 @@ const ContactForm = () => {
 
   // Generar token CSRF al montar el componente
   useEffect(() => {
+    const token = generateCSRFToken();
+    localStorage.setItem('csrfToken', token);
     setFormData(prev => ({
       ...prev,
-      csrfToken: generateCSRFToken()
+      csrfToken: token
     }));
   }, []);
 
@@ -107,13 +109,19 @@ const ContactForm = () => {
     setSubmitStatus(null);
 
     try {
+      // Obtener el token actual del localStorage
+      const currentToken = localStorage.getItem('csrfToken');
+      if (!currentToken) {
+        throw new Error('Token de seguridad no encontrado');
+      }
+
       await submitContactForm({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         company: formData.company,
         message: formData.message,
-        csrfToken: formData.csrfToken
+        csrfToken: currentToken
       });
       
       setSubmitStatus('success');
@@ -123,7 +131,7 @@ const ContactForm = () => {
         phone: '',
         company: '',
         message: '',
-        csrfToken: generateCSRFToken() // Generar nuevo token después del envío
+        csrfToken: currentToken // Mantener el mismo token
       });
     } catch (error) {
       console.error('Error submitting form:', error);
