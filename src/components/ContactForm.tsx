@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaPaperPlane, FaUser, FaEnvelope, FaPhone, FaBuilding, FaShieldAlt } from 'react-icons/fa';
+import { FaPaperPlane, FaUser, FaEnvelope, FaPhone, FaBuilding } from 'react-icons/fa';
 import { submitContactForm } from '../api/contact';
 import { 
   sanitizeInput, 
