@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FaServer, FaLaptop, FaDatabase, FaShieldAlt, FaUsers, FaWhatsapp, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaServer, FaLaptop, FaDatabase, FaShieldAlt, FaUsers, FaWhatsapp, FaChevronLeft, FaChevronRight, FaNetworkWired, FaUserShield, FaMobileAlt } from 'react-icons/fa';
 
 const Systems: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,54 +17,64 @@ const Systems: React.FC = () => {
 
   const services = [
     {
-      title: "Sistema de Escritorio",
-      description: "Soluciones robustas con servidor propio para una gestión eficiente y segura de sus operaciones.",
-      icon: FaLaptop,
+      title: "Aplicaciones Móviles",
+      description: "Desarrollo de apps nativas e híbridas para iOS y Android con funcionalidades avanzadas y diseño intuitivo.",
+      icon: FaMobileAlt,
       features: [
-        { icon: FaServer, text: "Servidor local" },
-        { icon: FaShieldAlt, text: "Máxima seguridad" }
+        { icon: FaShieldAlt, text: "Seguridad avanzada" },
+        { icon: FaDatabase, text: "Sincronización en tiempo real" }
       ],
       color: "blue"
     },
     {
-      title: "Web + Desktop",
-      description: "Plataformas híbridas que combinan lo mejor de web y escritorio para máxima flexibilidad.",
-      icon: FaServer,
+      title: "Sistemas de Administración",
+      description: "Plataformas robustas con servidores de bases de datos para gestión eficiente de información empresarial.",
+      icon: FaDatabase,
       features: [
-        { icon: FaUsers, text: "Acceso multiplataforma" },
-        { icon: FaDatabase, text: "Sincronización en tiempo real" }
+        { icon: FaServer, text: "Bases de datos seguras" },
+        { icon: FaShieldAlt, text: "Backup automático" }
       ],
       color: "purple"
     },
     {
-      title: "Gestión de Datos",
-      description: "Software personalizado para el análisis y gestión eficiente de datos empresariales.",
-      icon: FaDatabase,
+      title: "Panel Administrativo",
+      description: "Interfaces intuitivas para gestión completa de usuarios, permisos y configuración del sistema.",
+      icon: FaUserShield,
       features: [
-        { icon: FaShieldAlt, text: "Datos protegidos" },
-        { icon: FaServer, text: "Almacenamiento local" }
+        { icon: FaUsers, text: "Control de acceso" },
+        { icon: FaShieldAlt, text: "Roles y permisos" }
       ],
       color: "green"
     },
     {
-      title: "Aplicaciones Empresariales",
-      description: "Desarrollo de aplicaciones seguras y escalables para operaciones empresariales críticas.",
-      icon: FaShieldAlt,
+      title: "Entorno Cliente",
+      description: "Plataformas personalizadas para clientes con acceso seguro a sus datos y servicios.",
+      icon: FaUsers,
       features: [
-        { icon: FaServer, text: "Infraestructura segura" },
-        { icon: FaUsers, text: "Control de acceso" }
+        { icon: FaShieldAlt, text: "Acceso seguro" },
+        { icon: FaDatabase, text: "Datos en tiempo real" }
       ],
       color: "yellow"
     },
     {
-      title: "ERP/CRM Local",
-      description: "Sistemas de gestión empresarial con servidor local para máxima privacidad y control.",
-      icon: FaUsers,
+      title: "Redes Empresariales",
+      description: "Implementación de redes estructuradas para optimizar la conectividad y seguridad de su empresa.",
+      icon: FaNetworkWired,
       features: [
-        { icon: FaServer, text: "Servidor propio" },
-        { icon: FaDatabase, text: "Datos centralizados" }
+        { icon: FaServer, text: "Infraestructura robusta" },
+        { icon: FaShieldAlt, text: "Seguridad perimetral" }
       ],
       color: "red"
+    },
+    {
+      title: "Sistemas Web",
+      description: "Desarrollo de aplicaciones web modernas con interfaces responsivas y funcionalidades avanzadas.",
+      icon: FaLaptop,
+      features: [
+        { icon: FaServer, text: "Hosting optimizado" },
+        { icon: FaShieldAlt, text: "SSL y seguridad" }
+      ],
+      color: "indigo"
     }
   ];
 
@@ -83,7 +93,8 @@ const Systems: React.FC = () => {
       purple: { bg: 'bg-purple-100', text: 'text-purple-600', border: 'border-purple-500' },
       green: { bg: 'bg-green-100', text: 'text-green-600', border: 'border-green-500' },
       yellow: { bg: 'bg-yellow-100', text: 'text-yellow-600', border: 'border-yellow-500' },
-      red: { bg: 'bg-red-100', text: 'text-red-600', border: 'border-red-500' }
+      red: { bg: 'bg-red-100', text: 'text-red-600', border: 'border-red-500' },
+      indigo: { bg: 'bg-indigo-100', text: 'text-indigo-600', border: 'border-indigo-500' }
     };
 
     const colors = colorClasses[service.color as keyof typeof colorClasses];
@@ -120,7 +131,7 @@ const Systems: React.FC = () => {
             Soluciones Empresariales
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Desarrollamos software a medida para empresas, instituciones y startups que buscan optimizar sus operaciones
+            Desarrollamos sistemas integrales para la gestión eficiente de su empresa, desde aplicaciones móviles hasta redes estructuradas
           </p>
         </div>
 
@@ -156,7 +167,7 @@ const Systems: React.FC = () => {
 
         <div className="text-center mt-12">
           <a
-            href="https://wa.link/9fgi2d"
+            href="https://wa.link/p20o4u"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 text-lg font-medium group"
