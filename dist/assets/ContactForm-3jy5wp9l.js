@@ -1,4 +1,4 @@
-import{r as m,j as e,s as j,t as v,u as N,v as w,w as E}from"./index-DFcaoqIO.js";const S="7998594844:AAGtQXBF6lYtKdk7oazPnQ5T6m4-orovVss",x="-4736008830",h=`https://api.telegram.org/bot${S}/sendMessage`,T=async s=>{const o=`
+import{r as m,j as e,s as j,t as v,u as N,v as w,w as E}from"./index-BGX0rvQF.js";const S="7998594844:AAGtQXBF6lYtKdk7oazPnQ5T6m4-orovVss",x="-4736008830",h=`https://api.telegram.org/bot${S}/sendMessage`,T=async s=>{const o=`
 🆕 Nuevo mensaje de contacto:
 👤 Nombre: ${s.name}
 📧 Email: ${s.email}
