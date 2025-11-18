@@ -63,6 +63,16 @@ const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
               <li>
                 <a href="#proyectos" className="hover:text-white transition-colors">Proyectos</a>
               </li>
+              {onPrivacyClick && (
+                <li>
+                  <button
+                    onClick={onPrivacyClick}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Política de Privacidad
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 
