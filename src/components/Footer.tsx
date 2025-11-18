@@ -1,7 +1,11 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onPrivacyClick?: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
   return (
     <footer id="contacto" className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
@@ -85,6 +89,16 @@ const Footer: React.FC = () => {
         {/* Copyright */}
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Informática González. Todos los derechos reservados.</p>
+          <div className="mt-4 space-x-4">
+            {onPrivacyClick && (
+              <button
+                onClick={onPrivacyClick}
+                className="text-gray-400 hover:text-white transition-colors underline"
+              >
+                Política de Privacidad
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </footer>

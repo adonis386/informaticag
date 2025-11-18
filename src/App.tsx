@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import Header from './components/Header';
 import WhatsAppButton from './components/WhatsAppButton';
 
@@ -10,6 +10,7 @@ const WebServices = lazy(() => import('./components/WebServices'));
 const WebProjects = lazy(() => import('./components/WebProjects'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const Footer = lazy(() => import('./components/Footer'));
+const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 
 // Componente de loading
 const LoadingSpinner = () => (
@@ -19,21 +20,31 @@ const LoadingSpinner = () => (
 );
 
 function App() {
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
-      <Suspense fallback={<LoadingSpinner />}>
-        <main>
-          <Hero />
-          <About />
-          <Systems />
-          <WebServices />
-          <WebProjects />
-          <ContactForm />
-        </main>
-        <Footer />
-      </Suspense>
-      <WhatsAppButton />
+      {showPrivacyPolicy ? (
+        <Suspense fallback={<LoadingSpinner />}>
+          <PrivacyPolicy onBack={() => setShowPrivacyPolicy(false)} />
+        </Suspense>
+      ) : (
+        <>
+          <Header />
+          <Suspense fallback={<LoadingSpinner />}>
+            <main>
+              <Hero />
+              <About />
+              <Systems />
+              <WebServices />
+              <WebProjects />
+              <ContactForm />
+            </main>
+            <Footer onPrivacyClick={() => setShowPrivacyPolicy(true)} />
+          </Suspense>
+          <WhatsAppButton />
+        </>
+      )}
     </div>
   );
 }
