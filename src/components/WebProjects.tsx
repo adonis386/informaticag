@@ -1,111 +1,138 @@
-import React from 'react';
-import { FaCheck } from 'react-icons/fa';
-import ScrollAnimation from './ScrollAnimation';
+import { useRef } from 'react';
+import { FaExternalLinkAlt } from 'react-icons/fa';
+import SectionHeader from './ui/SectionHeader';
+import { gsap, useGSAP } from '../lib/gsap';
 
-const WebProjects: React.FC = () => {
-  const projects = [
-    {
-      title: "Denis Tattoo Gallery",
-      description: "Aplicación web para artistas de tatuajes que permite publicar y gestionar sus trabajos. Incluye sistema de autenticación y CRUD completo para la gestión de imágenes.",
-      image: "/assets/denis.webp",
-      technologies: ["React", "Node.js", "MongoDB", "Express"],
-      features: [
-        "Sistema de login seguro",
-        "Gestión de galería de tatuajes",
-        "Panel de administración",
-        "Diseño responsive"
-      ]
+const projects = [
+  {
+    title: 'Denis Tattoo Gallery',
+    description:
+      'Aplicación web para artistas de tatuajes con sistema de autenticación y CRUD completo para gestión de galería.',
+    image: '/assets/denis.webp',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
+    year: '2024',
+  },
+  {
+    title: 'Portfolio Creativo',
+    description:
+      'Portfolio profesional en WordPress con diseño personalizado, galería de proyectos y SEO optimizado.',
+    image: '/assets/portfolio.webp',
+    technologies: ['WordPress', 'PHP', 'MySQL', 'JavaScript'],
+    year: '2024',
+  },
+  {
+    title: 'Freestyle Battle App',
+    description:
+      'Plataforma para la comunidad del freestyle rap con rankings en tiempo real, eventos y perfiles de competidores.',
+    image: '/assets/rap.webp',
+    technologies: ['React', 'Firebase', 'Node.js', 'Express'],
+    year: '2023',
+  },
+];
+
+const WebProjects = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!sectionRef.current) return;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      if (headerRef.current) {
+        gsap.from(headerRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+          },
+        });
+      }
+
+      if (!listRef.current) return;
+
+      listRef.current.querySelectorAll('.project-row').forEach((item) => {
+        gsap.from(item, {
+          y: 36,
+          opacity: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 92%',
+            end: 'top 68%',
+            scrub: 1,
+          },
+        });
+      });
     },
-    {
-      title: "Portfolio Creativo",
-      description: "Portfolio profesional desarrollado en WordPress, demostrando nuestra capacidad para crear sitios web personales atractivos y únicos que destacan el trabajo y la personalidad del cliente.",
-      image: "/assets/portfolio.webp",
-      technologies: ["WordPress", "PHP", "MySQL", "JavaScript"],
-      features: [
-        "Diseño personalizado",
-        "Galería de proyectos",
-        "Blog integrado",
-        "SEO optimizado"
-      ]
-    },
-    {
-      title: "Freestyle Battle App",
-      description: "Plataforma web para la comunidad del freestyle rap, con sistema de rankings, gestión de eventos y perfiles de competidores. Permite a los usuarios registrarse y mantener su historial de batallas.",
-      image: "/assets/rap.webp",
-      technologies: ["React", "Firebase", "Node.js", "Express"],
-      features: [
-        "Sistema de rankings en tiempo real",
-        "Gestión de eventos",
-        "Perfiles de competidores",
-        "Historial de batallas"
-      ]
-    }
-  ];
+    { scope: sectionRef }
+  );
 
   return (
-    <section id="proyectos" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <ScrollAnimation key="titulo-proyectos">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-tektur font-bold mb-4 text-gray-800">
-              Proyectos Web
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Descubre algunos de nuestros proyectos más recientes
-            </p>
-          </div>
-        </ScrollAnimation>
+    <section id="proyectos" ref={sectionRef} className="relative z-10 bg-brand-bg text-white">
+      <div ref={headerRef} className="section-padding pb-0">
+        <div className="container-wide">
+          <SectionHeader
+            label="Works"
+            title="Proyectos seleccionados"
+            subtitle="Diseño, código y estrategia en acción."
+            dark
+          />
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="container-wide section-padding !pt-0">
+        <div ref={listRef} className="divide-y divide-neutral-800">
           {projects.map((project, index) => (
-            <div key={`proyecto-${project.title.toLowerCase().replace(' ', '-')}`}>
-              <ScrollAnimation delay={index * 0.2}>
-                <div
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
-                >
-                  <div className="relative h-64">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
-                  </div>
-                  <div className="p-8">
-                    <h3 className="text-2xl font-tektur font-bold mb-4 text-gray-800 group-hover:text-blue-600 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      {project.description}
-                    </p>
-                    <div className="mb-6">
-                      <h4 className="text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">Tecnologías</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, i) => (
-                          <span
-                            key={i}
-                            className="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-sm font-medium"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">Características</h4>
-                      <ul className="space-y-2">
-                        {project.features.map((feature, i) => (
-                          <li key={i} className="flex items-start space-x-2">
-                            <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                            <span className="text-gray-600 text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+            <article
+              key={project.title}
+              className="project-row group grid grid-cols-1 lg:grid-cols-12 gap-8 py-12 md:py-16 items-center"
+            >
+              <div className="lg:col-span-1 hidden lg:block">
+                <span className="text-xs text-neutral-600 font-mono">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+
+              <div className="lg:col-span-5 overflow-hidden aspect-[16/10] bg-neutral-900">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700"
+                />
+              </div>
+
+              <div className="lg:col-span-6 lg:pl-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="text-xs text-neutral-600 uppercase tracking-widest">
+                    {project.year}
+                  </span>
+                  <FaExternalLinkAlt className="text-neutral-600 group-hover:text-white transition-colors text-sm" />
                 </div>
-              </ScrollAnimation>
-            </div>
+                <h3 className="font-tektur text-3xl md:text-4xl font-bold mb-4 group-hover:text-brand-accent transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-neutral-400 leading-relaxed mb-6 font-roboto">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[10px] uppercase tracking-widest px-3 py-1.5 border border-neutral-700 text-neutral-500"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
           ))}
         </div>
       </div>

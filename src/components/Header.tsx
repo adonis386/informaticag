@@ -1,126 +1,129 @@
-import React, { useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
-
-const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const scrollToSection = (sectionId: string) => {
-    const section = document.querySelector(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
-  };
-
-  return (
-    <header className="fixed w-full bg-white/90 backdrop-blur-sm shadow-md z-50">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo y Título */}
-          <div className="flex items-center space-x-4">
-            <img
-              src="/assets/logo-1-Photoroom.png"
-              alt="Informática González"
-              className="h-16 w-16 rounded-full object-cover"
-            />
-            <h1 className="text-2xl font-tektur font-bold text-gray-800">
-              Informática González
-            </h1>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <button
-              onClick={() => scrollToSection('#inicio')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Inicio
-            </button>
-            <button
-              onClick={() => scrollToSection('#nosotros')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Nosotros
-            </button>
-            <button
-              onClick={() => scrollToSection('#servicios')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Servicios Web
-            </button>
-            <button
-              onClick={() => scrollToSection('#proyectos')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Proyectos
-            </button>
-            <button
-              onClick={() => scrollToSection('#contacto')}
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Contacto
-            </button>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-          >
-            {isMenuOpen ? (
-              <FaTimes className="h-6 w-6 text-gray-600" />
-            ) : (
-              <FaBars className="h-6 w-6 text-gray-600" />
-            )}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4">
-            <div className="flex flex-col space-y-4">
-              <button
-                onClick={() => scrollToSection('#inicio')}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              >
-                Inicio
-              </button>
-              <button
-                onClick={() => scrollToSection('#nosotros')}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              >
-                Nosotros
-              </button>
-              <button
-                onClick={() => scrollToSection('#sistemas')}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              >
-                Sistemas
-              </button>
-              <button
-                onClick={() => scrollToSection('#servicios')}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              >
-                Servicios Web
-              </button>
-              <button
-                onClick={() => scrollToSection('#proyectos')}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              >
-                Proyectos
-              </button>
-              <button
-                onClick={() => scrollToSection('#contacto')}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              >
-                Contacto
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </header>
-  );
-};
-
-export default Header;
+import { useState, useEffect } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { mainNav, siteConfig } from '../config/site';
+
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.querySelector(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
+
+  return (
+    <>
+      <header className="fixed w-full z-50 bg-transparent">
+        <div className="container-wide">
+          <div className="flex items-center justify-between h-20 md:h-24">
+            <button
+              onClick={() => scrollToSection('#inicio')}
+              className="group shrink-0"
+              aria-label="Ir al inicio"
+            >
+              <img
+                src="/assets/logo-3.webp"
+                alt={siteConfig.name}
+                decoding="async"
+                className="h-14 sm:h-16 md:h-[4.5rem] lg:h-20 w-auto object-contain transition-opacity group-hover:opacity-90"
+              />
+            </button>
+
+            <nav className="hidden lg:flex items-center gap-12">
+              {mainNav.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => scrollToSection(item.href)}
+                  className="text-[11px] uppercase tracking-[0.25em] font-medium text-white/70 hover:text-white transition-colors relative after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-px after:bg-white after:transition-all hover:after:w-full"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+
+            <div className="hidden lg:flex items-center gap-6">
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className="text-[11px] uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors"
+              >
+                Email
+              </a>
+              <button
+                onClick={() => scrollToSection('#contacto')}
+                className="text-[11px] uppercase tracking-[0.25em] font-medium px-6 py-3 border border-white/50 text-white hover:bg-white hover:text-neutral-950 transition-all"
+              >
+                Iniciar Proyecto
+              </button>
+            </div>
+
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`lg:hidden p-2 transition-colors ${
+                isMenuOpen ? 'text-neutral-950' : 'text-white'
+              }`}
+              aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            >
+              {isMenuOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div
+        className={`fixed inset-0 z-40 bg-brand-light transition-all duration-500 lg:hidden ${
+          isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col justify-between h-full pt-28 pb-12 px-8">
+          <nav className="flex flex-col gap-8">
+            {mainNav.map((item, i) => (
+              <button
+                key={item.href}
+                onClick={() => scrollToSection(item.href)}
+                className="text-left font-tektur text-4xl md:text-5xl font-bold text-neutral-950 hover:text-brand-accent transition-colors"
+                style={{ transitionDelay: `${i * 50}ms` }}
+              >
+                {item.label}
+              </button>
+            ))}
+            <button
+              onClick={() => scrollToSection('#contacto')}
+              className="text-left font-tektur text-4xl md:text-5xl font-bold text-neutral-400 hover:text-neutral-950 transition-colors"
+            >
+              Iniciar Proyecto
+            </button>
+          </nav>
+
+          <div className="space-y-4 border-t border-neutral-200 pt-8">
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="block text-sm text-neutral-500 hover:text-neutral-950 transition-colors"
+            >
+              {siteConfig.email}
+            </a>
+            <a
+              href={siteConfig.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-sm text-neutral-500 hover:text-neutral-950 transition-colors"
+            >
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Header;
+

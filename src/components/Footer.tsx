@@ -1,114 +1,80 @@
-import React from 'react';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { footerNav, siteConfig } from '../config/site';
 
 interface FooterProps {
   onPrivacyClick?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
+const Footer = ({ onPrivacyClick }: FooterProps) => {
   return (
-    <footer id="contacto" className="bg-gray-900 text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Company Info */}
+    <footer className="bg-brand-bg text-white border-t border-neutral-800">
+      <div className="container-wide py-12 md:py-16">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12">
           <div>
-            <h3 className="font-tektur text-xl mb-4">Informática González</h3>
-            <p className="text-gray-400 mb-4">
-              Soluciones tecnológicas personalizadas para impulsar su negocio al siguiente nivel.
+            <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4">
+              {siteConfig.name}
             </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://www.facebook.com/share/1FBoqnXEMC/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <FaFacebook className="text-2xl" />
-              </a>
-              <a 
-                href="https://www.instagram.com/informatica.gonzalez?igsh=Y21lMmtrZ3p3dnM3"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <FaInstagram className="text-2xl" />
-              </a>
-              <a 
-                href="https://wa.link/9fgi2d"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <FaWhatsapp className="text-2xl" />
-              </a>
-            </div>
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="font-tektur text-xl md:text-2xl text-white hover:text-neutral-400 transition-colors"
+            >
+              {siteConfig.email}
+            </a>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-tektur text-xl mb-4">Enlaces Rápidos</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <a href="#inicio" className="hover:text-white transition-colors">Inicio</a>
-              </li>
-              <li>
-                <a href="#nosotros" className="hover:text-white transition-colors">Nosotros</a>
-              </li>
-              <li>
-                <a href="#sistemas" className="hover:text-white transition-colors">Sistemas</a>
-              </li>
-              <li>
-                <a href="#servicios" className="hover:text-white transition-colors">Servicios Web</a>
-              </li>
-              <li>
-                <a href="#proyectos" className="hover:text-white transition-colors">Proyectos</a>
-              </li>
-              {onPrivacyClick && (
-                <li>
-                  <button
-                    onClick={onPrivacyClick}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Política de Privacidad
-                  </button>
-                </li>
-              )}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-tektur text-xl mb-4">Contacto</h3>
-            <ul className="space-y-4 text-gray-400">
-              <li className="flex items-start space-x-3">
-                <FaMapMarkerAlt className="text-xl mt-1 flex-shrink-0 text-blue-400" />
-                <span>Av Las Fuentes El Paraiso</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <FaPhone className="text-xl flex-shrink-0 text-blue-400" />
-                <span>+58 412 366 8513</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <FaEnvelope className="text-xl flex-shrink-0 text-blue-400" />
-                <span>contacto@informaticagonzalez.com</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Informática González. Todos los derechos reservados.</p>
-          <div className="mt-4 space-x-4">
+          <nav className="flex flex-wrap gap-x-8 gap-y-3">
+            {footerNav.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
             {onPrivacyClick && (
               <button
                 onClick={onPrivacyClick}
-                className="text-gray-400 hover:text-white transition-colors underline"
+                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-white transition-colors"
               >
-                Política de Privacidad
+                Privacidad
               </button>
             )}
+          </nav>
+
+          <div className="flex gap-3">
+            {[
+              { href: siteConfig.social.facebook, icon: FaFacebook, label: 'Facebook' },
+              { href: siteConfig.social.instagram, icon: FaInstagram, label: 'Instagram' },
+              { href: siteConfig.social.whatsapp, icon: FaWhatsapp, label: 'WhatsApp' },
+            ].map(({ href, icon: Icon, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="w-9 h-9 border border-neutral-700 flex items-center justify-center text-neutral-500 hover:text-white hover:border-white transition-all"
+              >
+                <Icon />
+              </a>
+            ))}
           </div>
+        </div>
+
+        <div className="border-t border-neutral-800 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-neutral-600 text-xs">
+          <p>&copy; {new Date().getFullYear()} {siteConfig.name}</p>
+          <p className="flex items-center gap-4">
+            <span className="flex items-center gap-2">
+              <FaMapMarkerAlt /> Av Las Fuentes El Paraiso
+            </span>
+            <span className="flex items-center gap-2">
+              <FaPhone /> {siteConfig.phone}
+            </span>
+            <span className="hidden md:flex items-center gap-2">
+              <FaEnvelope /> {siteConfig.email}
+            </span>
+          </p>
         </div>
       </div>
     </footer>

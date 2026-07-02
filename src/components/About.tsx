@@ -1,80 +1,70 @@
+import { useRef } from 'react';
+import GSAPReveal from './ui/GSAPReveal';
+import TextSplitReveal from './ui/TextSplitReveal';
+import { gsap, useGSAP } from '../lib/gsap';
+
+const stats = [
+  { value: '50+', label: 'Proyectos entregados' },
+  { value: '100%', label: 'Soluciones a medida' },
+];
+
 const About = () => {
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!imageRef.current) return;
+
+      gsap.from(imageRef.current, {
+        scale: 1.12,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: 'top 85%',
+        },
+      });
+    },
+    { scope: imageRef }
+  );
+
   return (
-    <section id="nosotros" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-          {/* Imagen */}
-          <div className="md:w-1/2 relative">
+    <section id="nosotros" className="section-padding bg-brand-bg text-white">
+      <div className="container-wide">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
+          <div className="lg:col-span-7">
+            <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-8">Studio</p>
+            <TextSplitReveal
+              lines={['Pensadores humanos.', 'Creadores digitales.']}
+              dark
+              className="mb-10"
+            />
+            <GSAPReveal delay={0.2}>
+              <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-xl font-roboto">
+                Estudio de desarrollo de software en Venezuela. Diseñamos y construimos productos
+                digitales para empresas que necesitan más que una web — necesitan resultados.
+              </p>
+            </GSAPReveal>
+
+            <GSAPReveal delay={0.35} className="mt-12 flex gap-12">
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="font-tektur text-4xl md:text-5xl font-bold">{stat.value}</p>
+                  <p className="text-xs uppercase tracking-widest text-neutral-600 mt-2">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </GSAPReveal>
+          </div>
+
+          <div ref={imageRef} className="lg:col-span-5 relative aspect-square overflow-hidden">
             <img
               src="/assets/logo-2.jpeg"
               alt="Informática González"
-              className="w-full rounded-xl shadow-xl transform hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
-            {/* Decoración */}
-            <div className="absolute -top-4 -left-4 w-20 h-20 bg-blue-600 rounded-full blur-2xl opacity-30" />
-            <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-blue-600 rounded-full blur-2xl opacity-30" />
-          </div>
-
-          {/* Contenido */}
-          <div className="md:w-1/2">
-            <h1 className="text-4xl font-tektur font-bold mb-6 text-gray-800">
-              Sobre Nosotros
-            </h1>
-            <p className="text-xl text-gray-700 mb-8 leading-relaxed font-roboto">
-              Somos una empresa especializada en desarrollo web y sistemas de administración de datos. 
-              Nuestro equipo de expertos crea soluciones tecnológicas a medida que transforman ideas 
-              en realidades digitales efectivas.
-            </p>
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <svg
-                    className="w-8 h-8 text-blue-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Desarrollo Web</h3>
-                  <p className="text-gray-600 font-roboto">
-                    Creación de sitios web modernos y aplicaciones web personalizadas que 
-                    mejoran la experiencia del usuario y potencian tu presencia digital.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <svg
-                    className="w-8 h-8 text-blue-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Sistemas de Administración</h3>
-                  <p className="text-gray-600 font-roboto">
-                    Desarrollo de sistemas robustos para la gestión de datos y procesos empresariales, 
-                    optimizando la eficiencia operativa y la toma de decisiones.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
