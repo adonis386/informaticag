@@ -8,7 +8,7 @@ const statementLines = [
 ];
 
 /**
- * Hero + Statement — scroll normal con reveal de texto.
+ * Hero fijo + Statement sube encima al scroll (pin + overlay).
  */
 const IntroScrollSection = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,10 +63,10 @@ const IntroScrollSection = () => {
     { scope: heroContentRef, dependencies: [isLoading] }
   );
 
-  // Animaciones al scroll (sin pin — el hero sale con el scroll normal)
+  // Pin + reveal al scroll
   useGSAP(
     () => {
-      if (isLoading || !heroRef.current || !statementRef.current) return;
+      if (isLoading || !heroRef.current || !statementRef.current || !heroContentRef.current) return;
 
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReduced) return;
@@ -74,51 +74,107 @@ const IntroScrollSection = () => {
       const splitLines = statementRef.current.querySelectorAll('.split-line');
       const statementText = statementRef.current.querySelector('.statement-body');
 
-      // Ocultar hero por completo cuando sale del viewport (evita que el video quede fijo)
+      const hideHero = () => {
+        gsap.set(heroRef.current, { autoAlpha: 0, visibility: 'hidden' });
+      };
+
+      const showHero = () => {
+        gsap.set(heroRef.current, { autoAlpha: 1, visibility: 'visible' });
+      };
+
+      // Hero fijo mientras Statement sube encima
       ScrollTrigger.create({
         trigger: heroRef.current,
+        start: 'top top',
+        endTrigger: statementRef.current,
+        end: 'bottom top',
+        pin: true,
+        pinSpacing: false,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onLeave: hideHero,
+        onEnterBack: showHero,
+      });
+
+      // Respaldo: ocultar hero cuando statement termina de pasar
+      ScrollTrigger.create({
+        trigger: statementRef.current,
         start: 'bottom top',
-        onEnter: () => gsap.set(heroRef.current, { visibility: 'hidden' }),
-        onLeaveBack: () => gsap.set(heroRef.current, { visibility: 'visible' }),
+        onEnter: hideHero,
+        onLeaveBack: showHero,
       });
 
-      if (heroBgRef.current) {
-        gsap.to(heroBgRef.current, {
-          yPercent: 15,
+      // Hero se desvanece mientras la statement lo cubre
+      gsap.fromTo(
+        heroContentRef.current,
+        { y: 0, opacity: 1 },
+        {
+          y: -60,
+          opacity: 0,
           ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        });
-      }
-
-      gsap.from(splitLines, {
-        y: 48,
-        duration: 0.9,
-        stagger: 0.12,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: statementRef.current,
-          start: 'top 80%',
-          once: true,
-        },
-      });
-
-      if (statementText) {
-        gsap.from(statementText, {
-          y: 32,
-          duration: 0.9,
-          delay: 0.35,
-          ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: statementRef.current,
-            start: 'top 75%',
-            once: true,
+            start: 'top bottom',
+            end: 'top top',
+            scrub: 1,
           },
-        });
+        }
+      );
+
+      if (heroBgRef.current) {
+        gsap.fromTo(
+          heroBgRef.current,
+          { scale: 1, opacity: 1 },
+          {
+            scale: 1.08,
+            opacity: 0,
+            ease: 'none',
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: statementRef.current,
+              start: 'top bottom',
+              end: 'top top',
+              scrub: 1,
+            },
+          }
+        );
+      }
+
+      // Líneas del statement — solo slide, sin opacity 0 (evita sección en blanco)
+      gsap.fromTo(
+        splitLines,
+        { yPercent: 100 },
+        {
+          yPercent: 0,
+          stagger: 0.12,
+          ease: 'none',
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: statementRef.current,
+            start: 'top bottom',
+            end: 'center center',
+            scrub: 1,
+          },
+        }
+      );
+
+      if (statementText) {
+        gsap.fromTo(
+          statementText,
+          { y: 48 },
+          {
+            y: 0,
+            ease: 'none',
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: statementRef.current,
+              start: 'top 70%',
+              end: 'center center',
+              scrub: 1,
+            },
+          }
+        );
       }
     },
     { scope: containerRef, dependencies: [isLoading] }
@@ -130,7 +186,7 @@ const IntroScrollSection = () => {
       <section
         id="inicio"
         ref={heroRef}
-        className="relative h-[100svh] flex items-end md:items-center overflow-hidden"
+        className="relative z-[1] h-[100svh] flex items-end md:items-center overflow-hidden"
       >
         <div ref={heroBgRef} className="absolute inset-0 bg-black will-change-transform">
           <div
@@ -212,9 +268,9 @@ const IntroScrollSection = () => {
       {/* Statement */}
       <section
         ref={statementRef}
-        className="relative bg-brand-light border-b border-neutral-200"
+        className="relative z-[2] min-h-[100svh] flex items-center bg-brand-light border-b border-neutral-200"
       >
-        <div className="container-wide section-padding w-full">
+        <div className="container-wide section-padding !py-0 w-full">
           <div>
             {statementLines.map((line) => (
               <div key={line} className="overflow-hidden">
