@@ -6,6 +6,8 @@ const IntroScrollSection = lazy(() => import('./components/IntroScrollSection'))
 const Marquee = lazy(() => import('./components/Marquee'));
 const WebProjects = lazy(() => import('./components/WebProjects'));
 const ServicesSection = lazy(() => import('./components/ServicesSection'));
+const CrmIntegrations = lazy(() => import('./components/CrmIntegrations'));
+const ToolsWeUse = lazy(() => import('./components/ToolsWeUse'));
 const About = lazy(() => import('./components/About'));
 const FooterCTA = lazy(() => import('./components/FooterCTA'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -65,6 +67,8 @@ function App() {
               <WebProjects />
               {/* 3. Qué hacemos */}
               <ServicesSection />
+              <CrmIntegrations />
+              <ToolsWeUse />
               {/* 4. Credibilidad breve */}
               <About />
               <FooterCTA />

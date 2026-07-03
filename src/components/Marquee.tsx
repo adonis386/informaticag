@@ -4,6 +4,7 @@ import { gsap, useGSAP } from '../lib/gsap';
 const items = [
   'Desarrollo Web',
   'Apps Móviles',
+  'Integraciones CRM',
   'Sistemas Empresariales',
   'E-commerce',
   'UI/UX Design',

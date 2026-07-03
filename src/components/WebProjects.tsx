@@ -2,33 +2,7 @@ import { useRef } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import SectionHeader from './ui/SectionHeader';
 import { gsap, useGSAP } from '../lib/gsap';
-
-const projects = [
-  {
-    title: 'Denis Tattoo Gallery',
-    description:
-      'Aplicación web para artistas de tatuajes con sistema de autenticación y CRUD completo para gestión de galería.',
-    image: '/assets/denis.webp',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    year: '2024',
-  },
-  {
-    title: 'Portfolio Creativo',
-    description:
-      'Portfolio profesional en WordPress con diseño personalizado, galería de proyectos y SEO optimizado.',
-    image: '/assets/portfolio.webp',
-    technologies: ['WordPress', 'PHP', 'MySQL', 'JavaScript'],
-    year: '2024',
-  },
-  {
-    title: 'Freestyle Battle App',
-    description:
-      'Plataforma para la comunidad del freestyle rap con rankings en tiempo real, eventos y perfiles de competidores.',
-    image: '/assets/rap.webp',
-    technologies: ['React', 'Firebase', 'Node.js', 'Express'],
-    year: '2023',
-  },
-];
+import { featuredProjects } from '../config/projects';
 
 const WebProjects = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -81,7 +55,7 @@ const WebProjects = () => {
           <SectionHeader
             label="Works"
             title="Proyectos seleccionados"
-            subtitle="Diseño, código y estrategia en acción."
+            subtitle="Proyectos en producción — diseño, código y estrategia en acción."
             dark
           />
         </div>
@@ -89,9 +63,9 @@ const WebProjects = () => {
 
       <div className="container-wide section-padding !pt-0">
         <div ref={listRef} className="divide-y divide-neutral-800">
-          {projects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <article
-              key={project.title}
+              key={project.url}
               className="project-row group grid grid-cols-1 lg:grid-cols-12 gap-8 py-12 md:py-16 items-center"
             >
               <div className="lg:col-span-1 hidden lg:block">
@@ -100,23 +74,45 @@ const WebProjects = () => {
                 </span>
               </div>
 
-              <div className="lg:col-span-5 overflow-hidden aspect-[16/10] bg-neutral-900">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lg:col-span-5 overflow-hidden aspect-[16/10] bg-neutral-900 block"
+                aria-label={`Ver ${project.title}`}
+              >
                 <img
                   src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700"
+                  alt={`Portada de ${project.title}`}
+                  loading="lazy"
+                  className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700"
                 />
-              </div>
+              </a>
 
               <div className="lg:col-span-6 lg:pl-8">
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-xs text-neutral-600 uppercase tracking-widest">
                     {project.year}
                   </span>
-                  <FaExternalLinkAlt className="text-neutral-600 group-hover:text-white transition-colors text-sm" />
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-neutral-600 hover:text-white transition-colors"
+                    aria-label={`Abrir ${project.title}`}
+                  >
+                    <FaExternalLinkAlt className="text-sm" />
+                  </a>
                 </div>
-                <h3 className="font-tektur text-3xl md:text-4xl font-bold mb-4 group-hover:text-brand-accent transition-colors">
-                  {project.title}
+                <h3 className="font-tektur text-3xl md:text-4xl font-bold mb-4">
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group-hover:text-brand-accent transition-colors"
+                  >
+                    {project.title}
+                  </a>
                 </h3>
                 <p className="text-neutral-400 leading-relaxed mb-6 font-roboto">
                   {project.description}
