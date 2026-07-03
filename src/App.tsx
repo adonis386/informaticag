@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import Header from './components/Header';
 import WhatsAppButton from './components/WhatsAppButton';
+import { privacySeo, usePageSeo } from './hooks/usePageSeo';
 
 const IntroScrollSection = lazy(() => import('./components/IntroScrollSection'));
 const Marquee = lazy(() => import('./components/Marquee'));
@@ -21,6 +22,16 @@ const LoadingSpinner = () => (
 
 function App() {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+
+  usePageSeo(
+    showPrivacyPolicy
+      ? {
+          title: `${privacySeo.title} | Informática González`,
+          description: privacySeo.description,
+          robots: privacySeo.robots,
+        }
+      : {}
+  );
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -60,7 +71,7 @@ function App() {
         <>
           <Header />
           <Suspense fallback={<LoadingSpinner />}>
-            <main className="relative isolate">
+            <main id="main-content" className="relative isolate">
               {/* 1. Impacto */}
               <IntroScrollSection />
               <Marquee />
