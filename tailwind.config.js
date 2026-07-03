@@ -17,7 +17,9 @@ export default {
           light: '#fcfcfc',
           muted: '#737373',
           border: '#262626',
-          accent: '#3b82f6',
+          accent: '#2563eb',
+          'accent-hover': '#1d4ed8',
+          'accent-muted': '#dbeafe',
         },
       },
       letterSpacing: {

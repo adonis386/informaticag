@@ -16,7 +16,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
             </p>
             <a
               href={`mailto:${siteConfig.email}`}
-              className="font-tektur text-xl md:text-2xl text-white hover:text-neutral-400 transition-colors"
+              className="font-tektur text-xl md:text-2xl text-white hover:text-brand-accent transition-colors"
             >
               {siteConfig.email}
             </a>
@@ -27,7 +27,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-white transition-colors"
+                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors"
               >
                 {link.label}
               </a>
@@ -35,7 +35,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
             {onPrivacyClick && (
               <button
                 onClick={onPrivacyClick}
-                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-white transition-colors"
+                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors"
               >
                 Privacidad
               </button>
@@ -54,7 +54,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 border border-neutral-700 flex items-center justify-center text-neutral-500 hover:text-white hover:border-white transition-all"
+                className="w-9 h-9 border border-neutral-700 flex items-center justify-center text-neutral-500 hover:text-brand-accent hover:border-brand-accent transition-all"
               >
                 <Icon />
               </a>

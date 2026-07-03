@@ -34,7 +34,7 @@ const About = () => {
       <div className="container-wide">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
           <div className="lg:col-span-7">
-            <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-8">Studio</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-brand-accent mb-8">Studio</p>
             <TextSplitReveal
               lines={['Pensadores humanos.', 'Creadores digitales.']}
               dark
@@ -50,7 +50,7 @@ const About = () => {
             <GSAPReveal delay={0.35} className="mt-12 flex gap-12">
               {stats.map((stat) => (
                 <div key={stat.label}>
-                  <p className="font-tektur text-4xl md:text-5xl font-bold">{stat.value}</p>
+                  <p className="font-tektur text-4xl md:text-5xl font-bold text-brand-accent">{stat.value}</p>
                   <p className="text-xs uppercase tracking-widest text-neutral-600 mt-2">
                     {stat.label}
                   </p>

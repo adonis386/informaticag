@@ -9,9 +9,7 @@ interface SectionHeaderProps {
 const SectionHeader = ({ label, title, subtitle, dark = false, className = '' }: SectionHeaderProps) => (
   <div className={`mb-16 md:mb-24 ${className}`}>
     <p
-      className={`text-xs md:text-sm uppercase tracking-[0.3em] mb-4 font-roboto ${
-        dark ? 'text-neutral-500' : 'text-neutral-400'
-      }`}
+      className="text-xs md:text-sm uppercase tracking-[0.3em] mb-4 font-roboto text-brand-accent"
     >
       {label}
     </p>

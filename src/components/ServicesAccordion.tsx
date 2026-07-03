@@ -102,11 +102,11 @@ const ServicesAccordion = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24">
           {/* Header sticky — estilo NineTwoThree */}
           <div ref={headerRef} className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
-            <p className="text-xs uppercase tracking-[0.3em] text-neutral-400 mb-6">Servicios</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-brand-accent mb-6">Servicios</p>
             <h2 className="font-tektur text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-neutral-950 leading-[1.08] tracking-tight">
               Software a medida.
               <br />
-              <span className="text-neutral-400">Hecho para operar.</span>
+              <span className="text-brand-accent">Hecho para operar.</span>
             </h2>
             <p className="mt-6 text-neutral-500 leading-relaxed font-roboto max-w-sm hidden lg:block">
               Desde sistemas empresariales hasta apps móviles — cada solución diseñada para
@@ -136,7 +136,7 @@ const ServicesAccordion = () => {
                   >
                     <span
                       className={`shrink-0 font-mono text-sm md:text-base tabular-nums transition-colors duration-300 ${
-                        isOpen ? 'text-neutral-950' : 'text-neutral-300 group-hover:text-neutral-500'
+                        isOpen ? 'text-brand-accent' : 'text-neutral-300 group-hover:text-brand-accent/70'
                       }`}
                     >
                       {String(index + 1).padStart(2, '0')}
@@ -146,7 +146,7 @@ const ServicesAccordion = () => {
                       <span
                         className={`block font-tektur text-xl md:text-2xl lg:text-[1.75rem] font-bold leading-tight transition-colors duration-300 ${
                           isOpen
-                            ? 'text-neutral-950'
+                            ? 'text-brand-accent'
                             : 'text-neutral-400 group-hover:text-neutral-700'
                         }`}
                       >
@@ -157,8 +157,8 @@ const ServicesAccordion = () => {
                     <span
                       className={`shrink-0 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center border rounded-full transition-all duration-300 ${
                         isOpen
-                          ? 'border-neutral-950 bg-neutral-950 text-white rotate-45'
-                          : 'border-neutral-200 text-neutral-400 group-hover:border-neutral-400 group-hover:text-neutral-600'
+                          ? 'border-brand-accent bg-brand-accent text-white rotate-45'
+                          : 'border-neutral-200 text-neutral-400 group-hover:border-brand-accent group-hover:text-brand-accent'
                       }`}
                       aria-hidden
                     >
@@ -190,7 +190,7 @@ const ServicesAccordion = () => {
                           {service.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="text-[11px] uppercase tracking-widest px-4 py-2 border border-neutral-200 text-neutral-600 bg-white hover:border-neutral-950 hover:text-neutral-950 transition-colors duration-300"
+                              className="text-[11px] uppercase tracking-widest px-4 py-2 border border-neutral-200 text-neutral-600 bg-white hover:border-brand-accent hover:text-brand-accent transition-colors duration-300"
                             >
                               {tag}
                             </span>
@@ -213,7 +213,7 @@ const ServicesAccordion = () => {
             href={siteConfig.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-neutral-950 text-white text-sm uppercase tracking-widest hover:bg-neutral-800 transition-colors shrink-0"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent text-white text-sm uppercase tracking-widest hover:bg-brand-accent-hover transition-colors shrink-0"
           >
             Solicitar consulta
             <FaWhatsapp className="text-lg" />

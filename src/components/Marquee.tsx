@@ -41,10 +41,10 @@ const Marquee = () => {
           {content.map((item, i) => (
             <span
               key={`${item}-${i}`}
-              className="mx-8 md:mx-12 text-neutral-500 font-tektur text-xl md:text-2xl uppercase tracking-widest"
+              className="mx-8 md:mx-12 text-neutral-500 font-tektur text-xl md:text-2xl uppercase tracking-widest hover:text-brand-accent transition-colors"
             >
               {item}
-              <span className="mx-8 md:mx-12 text-neutral-700">·</span>
+              <span className="mx-8 md:mx-12 text-brand-accent/50">·</span>
             </span>
           ))}
         </div>

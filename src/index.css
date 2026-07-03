@@ -13,7 +13,9 @@
   --brand-light: #fcfcfc;
   --brand-muted: #737373;
   --brand-border: #262626;
-  --brand-accent: #3b82f6;
+  --brand-accent: #2563eb;
+  --brand-accent-hover: #1d4ed8;
+  --brand-accent-muted: #dbeafe;
 }
 
 @layer base {
@@ -30,7 +32,7 @@
   }
 
   ::selection {
-    background-color: #0a0a0a;
+    background-color: var(--brand-accent);
     color: #fcfcfc;
   }
 }
@@ -53,15 +55,27 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-3.5 bg-white text-neutral-950 font-medium text-sm uppercase tracking-widest transition-all duration-300 hover:bg-neutral-200;
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-brand-accent text-white font-medium text-sm uppercase tracking-widest transition-all duration-300 hover:bg-brand-accent-hover;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center px-8 py-3.5 border border-white/40 text-white font-medium text-sm uppercase tracking-widest transition-all duration-300 hover:bg-white/10 hover:border-white/70;
+    @apply inline-flex items-center justify-center px-8 py-3.5 border border-white/40 text-white font-medium text-sm uppercase tracking-widest transition-all duration-300 hover:bg-brand-accent hover:border-brand-accent hover:text-white;
   }
 
   .btn-dark {
-    @apply inline-flex items-center justify-center px-8 py-3.5 bg-neutral-950 text-white font-medium text-sm uppercase tracking-widest transition-all duration-300 hover:bg-neutral-800;
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-brand-accent text-white font-medium text-sm uppercase tracking-widest transition-all duration-300 hover:bg-brand-accent-hover;
+  }
+
+  .btn-outline-dark {
+    @apply inline-flex items-center justify-center px-8 py-3.5 border border-neutral-950 text-neutral-950 text-sm uppercase tracking-widest transition-all duration-300 hover:bg-brand-accent hover:border-brand-accent hover:text-white;
+  }
+
+  .text-brand {
+    @apply text-brand-accent;
+  }
+
+  .label-brand {
+    @apply text-xs uppercase tracking-[0.3em] text-brand-accent;
   }
 
   .section-padding {
@@ -73,7 +87,7 @@
   }
 
   .card-minimal {
-    @apply border border-neutral-200 bg-white p-8 md:p-10 transition-all duration-500 hover:border-neutral-950;
+    @apply border border-neutral-200 bg-white p-8 md:p-10 transition-all duration-500 hover:border-brand-accent;
   }
 
   .marquee-track {

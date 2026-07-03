@@ -3,7 +3,7 @@ import { gsap, useGSAP } from '../lib/gsap';
 import { techTools, toolIconUrl } from '../config/tools';
 
 const ToolLogo = ({ tool }: { tool: (typeof techTools)[number] }) => (
-  <div className="flex items-center gap-3 shrink-0 px-6 md:px-10 opacity-60 hover:opacity-100 transition-opacity duration-300">
+  <div className="flex items-center gap-3 shrink-0 px-6 md:px-10 opacity-60 hover:opacity-100 transition-opacity duration-300 group">
     <img
       src={toolIconUrl(tool)}
       alt={tool.name}
@@ -12,7 +12,7 @@ const ToolLogo = ({ tool }: { tool: (typeof techTools)[number] }) => (
       loading="lazy"
       className="h-7 w-7 object-contain"
     />
-    <span className="text-sm md:text-base font-medium text-neutral-700 whitespace-nowrap tracking-tight">
+    <span className="text-sm md:text-base font-medium text-neutral-700 group-hover:text-brand-accent whitespace-nowrap tracking-tight transition-colors">
       {tool.name}
     </span>
   </div>
@@ -45,7 +45,7 @@ const ToolsWeUse = () => {
       aria-label="Herramientas que usamos"
     >
       <div ref={headerRef} className="container-wide text-center mb-12 md:mb-16">
-        <p className="text-xs uppercase tracking-[0.3em] text-neutral-400 mb-4">
+        <p className="text-xs uppercase tracking-[0.3em] text-brand-accent mb-4">
           De la idea al despliegue
         </p>
         <h2 className="font-tektur text-2xl md:text-4xl font-bold text-neutral-950 tracking-tight">

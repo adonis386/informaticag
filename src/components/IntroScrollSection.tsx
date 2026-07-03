@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 
 const statementLines = [
-  'Ideas audaces.',
-  'Código impecable.',
-  'Experiencias que importan.',
-];
+  { text: 'Ideas audaces.', accent: null },
+  { text: 'Código ', accent: 'impecable.' },
+  { text: 'Experiencias que ', accent: 'importan.' },
+] as const;
 
 /**
  * Hero fijo + Statement sube encima al scroll (pin + overlay).
@@ -256,10 +256,10 @@ const IntroScrollSection = () => {
             </div>
 
             <div className="hidden md:flex absolute bottom-12 right-12 flex-col items-center gap-3 text-white/40">
-              <span className="text-[10px] uppercase tracking-[0.3em] rotate-90 origin-center translate-y-8">
+              <span className="text-[10px] uppercase tracking-[0.3em] rotate-90 origin-center translate-y-8 text-brand-accent/70">
                 Scroll
               </span>
-              <div className="w-px h-16 bg-gradient-to-b from-white/0 via-white/40 to-white/0 animate-pulse" />
+              <div className="w-px h-16 bg-gradient-to-b from-brand-accent/0 via-brand-accent/50 to-brand-accent/0 animate-pulse" />
             </div>
           </div>
         </div>
@@ -273,9 +273,10 @@ const IntroScrollSection = () => {
         <div className="container-wide section-padding !py-0 w-full">
           <div>
             {statementLines.map((line) => (
-              <div key={line} className="overflow-hidden">
+              <div key={line.text} className="overflow-hidden">
                 <span className="split-line block font-tektur text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-neutral-950">
-                  {line}
+                  {line.text}
+                  {line.accent && <span className="text-brand-accent">{line.accent}</span>}
                 </span>
               </div>
             ))}

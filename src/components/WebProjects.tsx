@@ -98,7 +98,7 @@ const WebProjects = () => {
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-600 hover:text-white transition-colors"
+                    className="text-neutral-600 hover:text-brand-accent transition-colors"
                     aria-label={`Abrir ${project.title}`}
                   >
                     <FaExternalLinkAlt className="text-sm" />
@@ -121,7 +121,7 @@ const WebProjects = () => {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="text-[10px] uppercase tracking-widest px-3 py-1.5 border border-neutral-700 text-neutral-500"
+                      className="text-[10px] uppercase tracking-widest px-3 py-1.5 border border-neutral-700 text-neutral-500 group-hover:border-brand-accent/50 group-hover:text-brand-accent/80 transition-colors"
                     >
                       {tech}
                     </span>

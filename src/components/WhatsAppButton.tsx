@@ -7,7 +7,7 @@ const WhatsAppButton = () => {
         href="https://wa.link/p20o4u"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center w-12 h-12 bg-neutral-950 text-white border border-neutral-700 hover:bg-white hover:text-neutral-950 transition-all duration-300"
+        className="flex items-center justify-center w-12 h-12 bg-brand-accent text-white hover:bg-brand-accent-hover transition-all duration-300 shadow-lg shadow-brand-accent/25"
         aria-label="Contactar por WhatsApp"
       >
         <FaWhatsapp className="text-xl" />
