@@ -1,7 +1,8 @@
 import sharp from 'sharp';
 import { join } from 'path';
 
-const src = 'public/assets/logo-3.webp';
+/** Logo azul de marca — visible en pestañas claras del navegador */
+const src = 'public/assets/logo-blue.png';
 const out = 'public';
 
 const sizes = [
