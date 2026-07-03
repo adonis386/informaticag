@@ -44,4 +44,13 @@ export const featuredProjects = [
     technologies: ['Next.js', 'Logística', 'Tracking'],
     year: '2026',
   },
+  {
+    title: 'Sol y Sombra — Toldos & Persianas',
+    url: 'https://solsombratoldos.com',
+    description:
+      'Sitio corporativo para persianas y toldos en Caracas: catálogo de productos, servicios de mantenimiento y restauración, y formulario de contacto.',
+    image: '/assets/projects/solsombratoldos.webp',
+    technologies: ['Web', 'Catálogo', 'Contacto'],
+    year: '2026',
+  },
 ] as const;
