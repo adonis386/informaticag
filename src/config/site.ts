@@ -12,16 +12,16 @@ export const siteConfig = {
 
 /** Nav estilo agencia: pocos ítems, CTA claro (como Cappen: Works · About · Start Project) */
 export const mainNav = [
-  { label: 'Proyectos', href: '#proyectos' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Studio', href: '#nosotros' },
+  { label: 'Proyectos', href: '/#proyectos' },
+  { label: 'Servicios', href: '/#servicios' },
+  { label: 'Studio', href: '/#nosotros' },
 ] as const;
 
 export const footerNav = [
-  { label: 'Proyectos', href: '#proyectos' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Studio', href: '#nosotros' },
-  { label: 'Hablemos', href: '#contacto' },
+  { label: 'Proyectos', href: '/#proyectos' },
+  { label: 'Servicios', href: '/#servicios' },
+  { label: 'Studio', href: '/#nosotros' },
+  { label: 'Hablemos', href: '/#contacto' },
 ] as const;
 
 /**

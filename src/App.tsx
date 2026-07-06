@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import Header from './components/Header';
 import WhatsAppButton from './components/WhatsAppButton';
+import { getServicePage } from './config/service-pages';
 import { privacySeo, usePageSeo } from './hooks/usePageSeo';
 import { trackPageView } from './lib/analytics';
 
@@ -11,9 +12,11 @@ const ServicesSection = lazy(() => import('./components/ServicesSection'));
 const CrmIntegrations = lazy(() => import('./components/CrmIntegrations'));
 const ToolsWeUse = lazy(() => import('./components/ToolsWeUse'));
 const About = lazy(() => import('./components/About'));
+const FaqSection = lazy(() => import('./components/FaqSection'));
 const FooterCTA = lazy(() => import('./components/FooterCTA'));
 const Footer = lazy(() => import('./components/Footer'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
+const ServiceLanding = lazy(() => import('./pages/ServiceLanding'));
 
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-[200px]">
@@ -21,8 +24,17 @@ const LoadingSpinner = () => (
   </div>
 );
 
+const getServiceSlugFromPath = (pathname: string) => {
+  const match = pathname.match(/^\/servicios\/([^/]+)\/?$/);
+  return match?.[1] ?? null;
+};
+
 function App() {
+  const [pathname, setPathname] = useState(() => window.location.pathname);
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+
+  const serviceSlug = getServiceSlugFromPath(pathname);
+  const servicePage = serviceSlug ? getServicePage(serviceSlug) : null;
 
   usePageSeo(
     showPrivacyPolicy
@@ -30,15 +42,25 @@ function App() {
           title: `${privacySeo.title} | Informática González`,
           description: privacySeo.description,
           robots: privacySeo.robots,
+          canonicalPath: '/politica-privacidad',
         }
       : {}
   );
 
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash === '#privacy-policy' || hash === '#politica-privacidad') {
-      setShowPrivacyPolicy(true);
-    }
+    const handleNavigation = () => {
+      setPathname(window.location.pathname);
+      const hash = window.location.hash;
+      setShowPrivacyPolicy(hash === '#privacy-policy' || hash === '#politica-privacidad');
+    };
+
+    handleNavigation();
+    window.addEventListener('popstate', handleNavigation);
+    window.addEventListener('hashchange', handleNavigation);
+    return () => {
+      window.removeEventListener('popstate', handleNavigation);
+      window.removeEventListener('hashchange', handleNavigation);
+    };
   }, []);
 
   useEffect(() => {
@@ -46,16 +68,6 @@ function App() {
       trackPageView('/politica-privacidad', privacySeo.title);
     }
   }, [showPrivacyPolicy]);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      setShowPrivacyPolicy(hash === '#privacy-policy' || hash === '#politica-privacidad');
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
 
   const handleShowPrivacy = () => {
     setShowPrivacyPolicy(true);
@@ -68,6 +80,26 @@ function App() {
     window.history.replaceState(null, '', window.location.pathname);
   };
 
+  if (servicePage) {
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ServiceLanding page={servicePage} onPrivacyClick={handleShowPrivacy} />
+      </Suspense>
+    );
+  }
+
+  if (serviceSlug) {
+    return (
+      <div className="min-h-screen bg-brand-light flex flex-col items-center justify-center gap-6 px-6 text-center">
+        <h1 className="font-tektur text-3xl font-bold text-neutral-950">Página no encontrada</h1>
+        <p className="text-neutral-500 font-roboto">El servicio que busca no existe.</p>
+        <a href="/" className="btn-primary">
+          Volver al inicio
+        </a>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-brand-light">
       {showPrivacyPolicy ? (
@@ -79,16 +111,14 @@ function App() {
           <Header />
           <Suspense fallback={<LoadingSpinner />}>
             <main id="main-content" className="relative isolate">
-              {/* 1. Impacto */}
               <IntroScrollSection />
               <Marquee />
               <WebProjects />
-              {/* 3. Qué hacemos */}
               <ServicesSection />
               <CrmIntegrations />
               <ToolsWeUse />
-              {/* 4. Credibilidad breve */}
               <About />
+              <FaqSection />
               <FooterCTA />
             </main>
             <Footer onPrivacyClick={handleShowPrivacy} />

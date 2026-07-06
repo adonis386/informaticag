@@ -39,9 +39,9 @@ export const featuredProjects = [
     title: 'Legacy Cargo',
     url: 'https://www.legacycargove.com/',
     description:
-      'Logística internacional Venezuela ↔ China, Panamá y USA: envíos aéreos, marítimos, terrestres, aduana y tracking en tiempo real.',
+      'Integración Firebase + Odoo para logística internacional: app y web con seguimiento de envíos en tiempo real, sincronizados con el ERP operativo.',
     image: '/assets/projects/legacy.webp',
-    technologies: ['Next.js', 'Logística', 'Tracking'],
+    technologies: ['Firebase', 'Odoo', 'App móvil', 'Tracking'],
     year: '2026',
   },
   {

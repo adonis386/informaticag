@@ -71,6 +71,43 @@ export const privacySeo = {
   robots: 'noindex, follow',
 } as const;
 
+export const homeFaq = [
+  {
+    question: '¿Qué tipo de software desarrollan?',
+    answer:
+      'Desarrollamos software a medida: sitios web, aplicaciones móviles, sistemas de administración empresarial, e-commerce, paneles administrativos, portales para clientes e integraciones CRM con Odoo, HubSpot y GoHighLevel.',
+  },
+  {
+    question: '¿Trabajan solo en Caracas?',
+    answer:
+      'Tenemos sede en Caracas, Venezuela, pero trabajamos con clientes en todo el país y Latinoamérica de forma remota.',
+  },
+  {
+    question: '¿Cuánto tarda un proyecto de software?',
+    answer:
+      'Depende del alcance. Un sitio web corporativo puede tomar 4–8 semanas. Sistemas empresariales o apps móviles requieren más tiempo. Definimos un cronograma claro antes de iniciar.',
+  },
+  {
+    question: '¿Ofrecen mantenimiento después del lanzamiento?',
+    answer:
+      'Sí. Ofrecemos planes de soporte y mantenimiento post-lanzamiento para que su producto digital siga funcionando, actualizado y seguro.',
+  },
+] as const;
+
+const faqPageSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${SITE_URL}/#faq`,
+  mainEntity: homeFaq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+});
+
 const organizationSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -139,7 +176,7 @@ const professionalServiceSchema = () => ({
 
 export const structuredDataGraph = () => ({
   '@context': 'https://schema.org',
-  '@graph': [organizationSchema(), webSiteSchema(), professionalServiceSchema()],
+  '@graph': [organizationSchema(), webSiteSchema(), professionalServiceSchema(), faqPageSchema()],
 });
 
 export const buildSeoHead = (options?: { title?: string; description?: string; robots?: string }) => {

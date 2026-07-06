@@ -1,6 +1,12 @@
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { servicePageSlugs, servicePages } from '../config/service-pages';
 import { footerNav, siteConfig } from '../config/site';
 import { trackEmailClick, trackWhatsAppClick } from '../lib/analytics';
+
+const footerServiceLinks = servicePageSlugs.map((slug) => ({
+  label: servicePages[slug].name,
+  href: `/servicios/${slug}`,
+}));
 
 interface FooterProps {
   onPrivacyClick?: () => void;
@@ -10,7 +16,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
   return (
     <footer className="bg-brand-bg text-white border-t border-neutral-800">
       <div className="container-wide py-12 md:py-16">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4">
               {siteConfig.name}
@@ -24,27 +30,47 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
             </a>
           </div>
 
-          <nav className="flex flex-wrap gap-x-8 gap-y-3">
-            {footerNav.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            {onPrivacyClick && (
-              <button
-                onClick={onPrivacyClick}
-                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors"
-              >
-                Privacidad
-              </button>
-            )}
+          <nav>
+            <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4">Navegación</p>
+            <div className="flex flex-col gap-3">
+              {footerNav.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors w-fit"
+                >
+                  {link.label}
+                </a>
+              ))}
+              {onPrivacyClick && (
+                <button
+                  onClick={onPrivacyClick}
+                  className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors text-left w-fit"
+                >
+                  Privacidad
+                </button>
+              )}
+            </div>
           </nav>
 
-          <div className="flex gap-3">
+          <nav>
+            <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4">Servicios</p>
+            <div className="flex flex-col gap-3">
+              {footerServiceLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors w-fit"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4">Redes</p>
+            <div className="flex gap-3">
             {[
               { href: siteConfig.social.facebook, icon: FaFacebook, label: 'Facebook' },
               { href: siteConfig.social.instagram, icon: FaInstagram, label: 'Instagram' },
@@ -62,6 +88,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
                 <Icon />
               </a>
             ))}
+            </div>
           </div>
         </div>
 

@@ -50,6 +50,7 @@ export const usePageSeo = ({ title, description, robots, canonicalPath }: PageSe
     setMeta('robots', nextRobots);
     setMeta('og:title', nextTitle, true);
     setMeta('og:description', nextDescription, true);
+    setMeta('og:url', nextCanonical, true);
     setMeta('twitter:title', nextTitle);
     setMeta('twitter:description', nextDescription);
     setCanonical(nextCanonical);
@@ -60,6 +61,7 @@ export const usePageSeo = ({ title, description, robots, canonicalPath }: PageSe
       setMeta('robots', prevRobots);
       setMeta('og:title', prevTitle, true);
       setMeta('og:description', prevDescription, true);
+      setMeta('og:url', prevCanonical || `${seoConfig.siteUrl}/`, true);
       setMeta('twitter:title', prevTitle);
       setMeta('twitter:description', prevDescription);
       if (prevCanonical) setCanonical(prevCanonical);

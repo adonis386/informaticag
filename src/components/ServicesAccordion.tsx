@@ -16,6 +16,7 @@ const services = [
     description:
       'Apps nativas e híbridas para iOS y Android con diseño intuitivo, notificaciones, sincronización en la nube y funcionalidades avanzadas.',
     tags: ['iOS & Android', 'Tiempo real', 'APIs'],
+    landingSlug: 'aplicaciones-moviles',
   },
   {
     title: 'Paneles Administrativos',
@@ -34,6 +35,7 @@ const services = [
     description:
       'Sitios y aplicaciones web modernas con React, Node.js y TypeScript — responsivas, rápidas y optimizadas para conversión.',
     tags: ['React', 'Node.js', 'TypeScript'],
+    landingSlug: 'desarrollo-web',
   },
   {
     title: 'E-commerce',
@@ -197,6 +199,14 @@ const ServicesAccordion = () => {
                             </span>
                           ))}
                         </div>
+                        {'landingSlug' in service && service.landingSlug && (
+                          <a
+                            href={`/servicios/${service.landingSlug}`}
+                            className="inline-block mt-6 text-sm uppercase tracking-widest text-brand-accent hover:text-brand-accent-hover transition-colors"
+                          >
+                            Más información →
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
