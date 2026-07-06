@@ -75,21 +75,34 @@ const ServiceLanding = ({ page, onPrivacyClick }: ServiceLandingProps) => {
       <Header variant="dark" />
 
       <main id="main-content">
-        <section className="bg-brand-bg text-white pt-32 md:pt-40 pb-20 md:pb-28">
-          <div className="container-wide section-padding !pt-0">
+        <section
+          className="relative min-h-[75vh] md:min-h-[85vh] flex items-end md:items-center overflow-hidden text-white"
+          aria-label={page.heroImageAlt}
+        >
+          <div className="absolute inset-0 bg-brand-bg" aria-hidden>
+            <img
+              src={page.heroImage}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover object-center scale-105 brightness-[0.72]"
+              fetchPriority="high"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/55" />
+          </div>
+
+          <div className="relative z-10 container-wide section-padding pt-32 md:pt-40 pb-20 md:pb-28 w-full">
             <a
               href="/#servicios"
-              className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-neutral-500 hover:text-brand-accent transition-colors mb-10"
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-neutral-400 hover:text-brand-accent transition-colors mb-10"
             >
               <FaArrowLeft className="text-sm" />
               Servicios
             </a>
 
             <p className="text-xs uppercase tracking-[0.3em] text-brand-accent mb-6">{page.name}</p>
-            <h1 className="font-tektur text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight max-w-4xl">
+            <h1 className="font-tektur text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight max-w-4xl text-shadow-lg">
               {page.h1}
             </h1>
-            <p className="mt-8 text-lg md:text-xl text-neutral-400 max-w-2xl leading-relaxed font-roboto">
+            <p className="mt-8 text-lg md:text-xl text-neutral-300 max-w-2xl leading-relaxed font-roboto text-shadow">
               {page.heroSubtitle}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">

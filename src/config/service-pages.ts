@@ -27,6 +27,8 @@ export type ServicePageConfig = {
   metaDescription: string;
   h1: string;
   heroSubtitle: string;
+  heroImage: string;
+  heroImageAlt: string;
   intro: string;
   body: readonly string[];
   benefits: readonly ServiceBenefit[];
@@ -40,12 +42,14 @@ export const servicePages = {
   'desarrollo-web': {
     slug: 'desarrollo-web',
     name: 'Desarrollo Web',
-    metaTitle: 'Desarrollo Web en Caracas | Sitios con React y Next.js | Informática González',
+    metaTitle: 'Desarrollo Web | Sitios con React y Next.js | Informática González',
     metaDescription:
       'Desarrollo web profesional en Caracas, Venezuela. Sitios rápidos, responsivos y optimizados para SEO con React, Next.js y TypeScript. Consulta sin compromiso.',
-    h1: 'Desarrollo Web en Caracas',
+    h1: 'Desarrollo Web',
     heroSubtitle:
       'Sitios y aplicaciones web modernas, rápidas y pensadas para convertir visitantes en clientes.',
+    heroImage: '/assets/services/desarrollo-web-hero.webp',
+    heroImageAlt: 'Ilustración de desarrollo web: interfaz y código en estilo wireframe',
     intro:
       'En Informática González diseñamos y desarrollamos sitios web a medida para empresas en Caracas y toda Venezuela. No usamos plantillas genéricas: cada proyecto se construye con tecnologías modernas, arquitectura escalable y foco en resultados de negocio.',
     body: [
@@ -148,6 +152,8 @@ export const servicePages = {
     h1: 'Aplicaciones Móviles a Medida',
     heroSubtitle:
       'Apps nativas e híbridas para iOS y Android — conectadas a su operación, su ERP y sus clientes en tiempo real.',
+    heroImage: '/assets/services/aplicaciones-moviles-hero.webp',
+    heroImageAlt: 'Ilustración de aplicaciones móviles conectadas a Firebase y Odoo',
     intro:
       'Desarrollamos aplicaciones móviles que resuelven problemas reales de negocio: seguimiento logístico, autogestión de clientes, operaciones de campo y sincronización con sistemas empresariales como Odoo.',
     body: [
