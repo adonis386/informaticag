@@ -4,6 +4,7 @@ import { buildAnalyticsHead } from './src/config/analytics';
 import { buildSeoHead, buildSeoNoscript } from './src/config/seo';
 
 export default defineConfig({
+  appType: 'spa',
   plugins: [
     react(),
     {
