@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import { buildAnalyticsHead } from './src/config/analytics';
 import { buildSeoHead, buildSeoNoscript } from './src/config/seo';
 
