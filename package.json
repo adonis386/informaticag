@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "vercel-build": "npm run build",
     "generate:favicons": "node scripts/generate-favicons.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
