@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { gsap, useGSAP } from '../lib/gsap';
 import { siteConfig } from '../config/site';
+import { trackWhatsAppClick } from '../lib/analytics';
 
 const services = [
   {
@@ -213,6 +214,7 @@ const ServicesAccordion = () => {
             href={siteConfig.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick('services_section')}
             className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent text-white text-sm uppercase tracking-widest hover:bg-brand-accent-hover transition-colors shrink-0"
           >
             Solicitar consulta

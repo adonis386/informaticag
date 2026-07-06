@@ -2,6 +2,7 @@ import { lazy, Suspense, useState, useEffect } from 'react';
 import Header from './components/Header';
 import WhatsAppButton from './components/WhatsAppButton';
 import { privacySeo, usePageSeo } from './hooks/usePageSeo';
+import { trackPageView } from './lib/analytics';
 
 const IntroScrollSection = lazy(() => import('./components/IntroScrollSection'));
 const Marquee = lazy(() => import('./components/Marquee'));
@@ -39,6 +40,12 @@ function App() {
       setShowPrivacyPolicy(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (showPrivacyPolicy) {
+      trackPageView('/politica-privacidad', privacySeo.title);
+    }
+  }, [showPrivacyPolicy]);
 
   useEffect(() => {
     const handleHashChange = () => {

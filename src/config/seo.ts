@@ -30,7 +30,11 @@ export const seoConfig = {
     'Informática González',
   ].join(', '),
 
-  ogImage: `${SITE_URL}/assets/logo-3.webp`,
+  logo: `${SITE_URL}/assets/logo-3.webp`,
+  ogImage: `${SITE_URL}/assets/og-image.png`,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
   ogImageAlt: 'Informática González — desarrollo de software a medida',
 
   twitterHandle: '',
@@ -73,7 +77,7 @@ const organizationSchema = () => ({
   '@id': `${SITE_URL}/#organization`,
   name: seoConfig.siteName,
   url: SITE_URL,
-  logo: seoConfig.ogImage,
+  logo: seoConfig.logo,
   image: seoConfig.ogImage,
   description: seoConfig.description,
   email: siteConfig.email,
@@ -111,6 +115,7 @@ const professionalServiceSchema = () => ({
   name: seoConfig.siteName,
   url: SITE_URL,
   image: seoConfig.ogImage,
+  logo: seoConfig.logo,
   description: seoConfig.description,
   email: siteConfig.email,
   telephone: siteConfig.phone,
@@ -164,6 +169,9 @@ export const buildSeoHead = (options?: { title?: string; description?: string; r
     <meta property="og:description" content="${description}" />
     <meta property="og:url" content="${SITE_URL}/" />
     <meta property="og:image" content="${seoConfig.ogImage}" />
+    <meta property="og:image:width" content="${seoConfig.ogImageWidth}" />
+    <meta property="og:image:height" content="${seoConfig.ogImageHeight}" />
+    <meta property="og:image:type" content="${seoConfig.ogImageType}" />
     <meta property="og:image:alt" content="${seoConfig.ogImageAlt}" />
 
     <meta name="twitter:card" content="summary_large_image" />

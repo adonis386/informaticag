@@ -1,5 +1,6 @@
 import { siteConfig } from '../config/site';
 import GSAPReveal from './ui/GSAPReveal';
+import { trackEmailClick, trackWhatsAppClick } from '../lib/analytics';
 
 const FooterCTA = () => (
   <section id="contacto" className="section-padding bg-brand-light border-t border-neutral-200">
@@ -17,13 +18,18 @@ const FooterCTA = () => (
             </h2>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 lg:pb-2">
-            <a href={`mailto:${siteConfig.email}`} className="btn-dark">
+            <a
+              href={`mailto:${siteConfig.email}`}
+              onClick={() => trackEmailClick('footer_cta')}
+              className="btn-dark"
+            >
               {siteConfig.email}
             </a>
             <a
               href={siteConfig.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('footer_cta')}
               className="btn-outline-dark"
             >
               WhatsApp

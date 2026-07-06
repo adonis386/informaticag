@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { siteConfig } from '../config/site';
+import { trackWhatsAppClick } from '../lib/analytics';
 import { crmPlatforms, crmIconUrl, type CrmPlatform } from '../config/crm';
 import GSAPReveal from './ui/GSAPReveal';
 
@@ -184,6 +185,7 @@ const CrmIntegrations = () => {
                   href={siteConfig.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick('crm_section_desktop')}
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent text-white text-sm uppercase tracking-widest hover:bg-brand-accent-hover transition-all w-fit"
                 >
                   Consultar integración
@@ -223,6 +225,7 @@ const CrmIntegrations = () => {
                 href={siteConfig.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('crm_section_mobile')}
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent text-white text-sm uppercase tracking-widest hover:bg-brand-accent-hover transition-all shrink-0"
               >
                 Consultar integración

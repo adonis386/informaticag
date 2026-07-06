@@ -1,5 +1,6 @@
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { footerNav, siteConfig } from '../config/site';
+import { trackEmailClick, trackWhatsAppClick } from '../lib/analytics';
 
 interface FooterProps {
   onPrivacyClick?: () => void;
@@ -16,6 +17,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
             </p>
             <a
               href={`mailto:${siteConfig.email}`}
+              onClick={() => trackEmailClick('footer')}
               className="font-tektur text-xl md:text-2xl text-white hover:text-brand-accent transition-colors"
             >
               {siteConfig.email}
@@ -53,6 +55,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => label === 'WhatsApp' && trackWhatsAppClick('footer_social')}
                 aria-label={label}
                 className="w-9 h-9 border border-neutral-700 flex items-center justify-center text-neutral-500 hover:text-brand-accent hover:border-brand-accent transition-all"
               >

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import { buildAnalyticsHead } from './src/config/analytics';
 import { buildSeoHead, buildSeoNoscript } from './src/config/seo';
 
 export default defineConfig({
@@ -9,7 +10,7 @@ export default defineConfig({
       name: 'inject-seo',
       transformIndexHtml(html) {
         return html
-          .replace('<!-- SEO_INJECT -->', buildSeoHead())
+          .replace('<!-- SEO_INJECT -->', `${buildSeoHead()}\n    ${buildAnalyticsHead()}`)
           .replace('<!-- SEO_NOSCRIPT -->', buildSeoNoscript());
       },
     },

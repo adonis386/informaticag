@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { mainNav, siteConfig } from '../config/site';
+import { trackContactClick, trackEmailClick, trackWhatsAppClick } from '../lib/analytics';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,6 +16,9 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const section = document.querySelector(sectionId);
     if (section) {
+      if (sectionId === '#contacto') {
+        trackContactClick('header');
+      }
       section.scrollIntoView({ behavior: 'smooth' });
       setIsMenuOpen(false);
     }
@@ -53,6 +57,7 @@ const Header = () => {
             <div className="hidden lg:flex items-center gap-6">
               <a
                 href={`mailto:${siteConfig.email}`}
+                onClick={() => trackEmailClick('header')}
                 className="text-[11px] uppercase tracking-[0.2em] text-white/50 hover:text-brand-accent transition-colors"
               >
                 Email
@@ -106,6 +111,7 @@ const Header = () => {
           <div className="space-y-4 border-t border-neutral-200 pt-8">
             <a
               href={`mailto:${siteConfig.email}`}
+              onClick={() => trackEmailClick('mobile_menu')}
               className="block text-sm text-neutral-500 hover:text-neutral-950 transition-colors"
             >
               {siteConfig.email}
@@ -114,6 +120,7 @@ const Header = () => {
               href={siteConfig.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('mobile_menu')}
               className="block text-sm text-neutral-500 hover:text-neutral-950 transition-colors"
             >
               WhatsApp
