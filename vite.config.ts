@@ -5,6 +5,10 @@ import { buildSeoHead, buildSeoNoscript } from './src/config/seo';
 
 export default defineConfig({
   appType: 'spa',
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+  },
   plugins: [
     react(),
     {
