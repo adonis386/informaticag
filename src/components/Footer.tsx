@@ -1,7 +1,7 @@
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { servicePageSlugs, servicePages } from '../config/service-pages';
 import { footerNav, siteConfig } from '../config/site';
-import { trackEmailClick, trackWhatsAppClick } from '../lib/analytics';
+import { trackContactClick, trackWhatsAppClick } from '../lib/analytics';
 
 const footerServiceLinks = servicePageSlugs.map((slug) => ({
   label: servicePages[slug].name,
@@ -21,13 +21,27 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
             <p className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4">
               {siteConfig.name}
             </p>
-            <a
-              href={`mailto:${siteConfig.email}`}
-              onClick={() => trackEmailClick('footer')}
-              className="font-tektur text-xl md:text-2xl text-white hover:text-brand-accent transition-colors"
-            >
-              {siteConfig.email}
-            </a>
+            <p className="text-sm text-neutral-500 font-roboto leading-relaxed max-w-xs">
+              Desarrollo de software a medida en Venezuela.
+            </p>
+            <div className="mt-5 flex flex-col gap-3">
+              <a
+                href="/contacto"
+                onClick={() => trackContactClick('footer')}
+                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors w-fit"
+              >
+                Formulario de contacto
+              </a>
+              <a
+                href={siteConfig.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('footer')}
+                className="text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-brand-accent transition-colors w-fit"
+              >
+                WhatsApp
+              </a>
+            </div>
           </div>
 
           <nav>
@@ -101,9 +115,13 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
             <span className="flex items-center gap-2">
               <FaPhone /> {siteConfig.phone}
             </span>
-            <span className="hidden md:flex items-center gap-2">
-              <FaEnvelope /> {siteConfig.email}
-            </span>
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="hidden md:flex items-center gap-2 hover:text-neutral-400 transition-colors"
+            >
+              <FaEnvelope />
+              <span className="truncate max-w-[200px]">{siteConfig.email}</span>
+            </a>
           </p>
         </div>
       </div>
