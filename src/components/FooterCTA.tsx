@@ -1,6 +1,6 @@
 import { siteConfig } from '../config/site';
 import GSAPReveal from './ui/GSAPReveal';
-import { trackEmailClick, trackWhatsAppClick } from '../lib/analytics';
+import { trackContactClick, trackEmailClick, trackWhatsAppClick } from '../lib/analytics';
 
 const FooterCTA = () => (
   <section id="contacto" className="section-padding bg-brand-light border-t border-neutral-200">
@@ -19,9 +19,16 @@ const FooterCTA = () => (
           </div>
           <div className="flex flex-col sm:flex-row gap-4 lg:pb-2">
             <a
+              href="/contacto"
+              onClick={() => trackContactClick('footer_cta')}
+              className="btn-dark"
+            >
+              Formulario de contacto
+            </a>
+            <a
               href={`mailto:${siteConfig.email}`}
               onClick={() => trackEmailClick('footer_cta')}
-              className="btn-dark"
+              className="btn-outline-dark"
             >
               {siteConfig.email}
             </a>

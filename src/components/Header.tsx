@@ -63,7 +63,7 @@ const Header = ({ variant = 'hero' }: HeaderProps) => {
                 Email
               </a>
               <a
-                href="/#contacto"
+                href="/contacto"
                 onClick={() => trackContactClick('header')}
                 className="text-[11px] uppercase tracking-[0.25em] font-medium px-6 py-3 bg-brand-accent text-white hover:bg-brand-accent-hover transition-all"
               >
@@ -101,7 +101,7 @@ const Header = ({ variant = 'hero' }: HeaderProps) => {
               </a>
             ))}
             <a
-              href="/#contacto"
+              href="/contacto"
               onClick={() => {
                 trackContactClick('mobile_menu');
                 setIsMenuOpen(false);

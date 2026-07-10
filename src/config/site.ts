@@ -21,7 +21,7 @@ export const footerNav = [
   { label: 'Proyectos', href: '/#proyectos' },
   { label: 'Servicios', href: '/#servicios' },
   { label: 'Studio', href: '/#nosotros' },
-  { label: 'Hablemos', href: '/#contacto' },
+  { label: 'Hablemos', href: '/contacto' },
 ] as const;
 
 /**

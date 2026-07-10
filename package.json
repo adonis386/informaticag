@@ -8,6 +8,11 @@
     "build": "tsc -b && vite build",
     "vercel-build": "npm run build",
     "generate:favicons": "node scripts/generate-favicons.mjs",
+    "generate:carousel": "node scripts/generate-carousel-servicios.mjs",
+    "generate:story": "node scripts/generate-story.mjs",
+    "generate:reel": "node scripts/generate-scroll-reel.mjs",
+    "generate:reel:setup": "npx playwright install chromium",
+    "generate:post": "node scripts/generate-caso-estudio.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -18,16 +23,20 @@
     "gsap": "^3.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "resend": "^6.17.2"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "@vercel/node": "^5.8.23",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.18",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "playwright": "^1.61.1",
     "postcss": "^8.4.35",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.1",

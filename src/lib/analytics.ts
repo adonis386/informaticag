@@ -41,3 +41,11 @@ export const trackContactClick = (location: string) => {
     method: 'contact_section',
   });
 };
+
+export const trackContactFormSubmit = (projectType: string) => {
+  trackEvent('contact_form_submit', {
+    event_category: 'conversion',
+    event_label: projectType,
+    method: 'contact_form',
+  });
+};

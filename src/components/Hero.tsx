@@ -122,7 +122,7 @@ const Hero = () => {
               <a href="#proyectos" className="btn-primary">
                 Ver Proyectos
               </a>
-              <a href="#contacto" className="btn-outline">
+              <a href="/contacto" className="btn-outline">
                 Iniciar Proyecto
               </a>
             </div>

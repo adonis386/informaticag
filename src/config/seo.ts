@@ -71,6 +71,12 @@ export const privacySeo = {
   robots: 'noindex, follow',
 } as const;
 
+export const contactSeo = {
+  title: 'Contacto | Informática González',
+  description:
+    'Contáctenos para desarrollo de software a medida, aplicaciones móviles, sistemas empresariales e integraciones CRM. Respondemos en minutos.',
+} as const;
+
 export const homeFaq = [
   {
     question: '¿Qué tipo de software desarrollan?',

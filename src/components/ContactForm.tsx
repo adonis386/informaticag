@@ -1,16 +1,21 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 import { submitContactForm } from '../api/contact';
-import {
-  isValidEmail,
-  isValidPhone,
-  generateCSRFToken,
-  checkRateLimit,
-  isLikelyBot,
-} from '../utils/security';
+import { isValidEmail, isValidPhone, checkRateLimit, isLikelyBot } from '../utils/security';
+import { siteConfig } from '../config/site';
+import { trackContactFormSubmit } from '../lib/analytics';
 import SectionHeader from './ui/SectionHeader';
 import GSAPReveal from './ui/GSAPReveal';
 import { gsap, useGSAP } from '../lib/gsap';
+
+const PROJECT_TYPES = [
+  'Desarrollo Web',
+  'Aplicación Móvil',
+  'Sistema Empresarial',
+  'E-commerce',
+  'Integración CRM',
+  'Otro',
+] as const;
 
 const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -19,18 +24,13 @@ const ContactForm = () => {
     email: '',
     phone: '',
     company: '',
+    projectType: '',
     message: '',
-    csrfToken: '',
+    website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<null | 'success' | 'error'>(null);
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    const token = generateCSRFToken();
-    localStorage.setItem('csrfToken', token);
-    setFormData((prev) => ({ ...prev, csrfToken: token }));
-  }, []);
 
   useGSAP(
     () => {
@@ -51,7 +51,9 @@ const ContactForm = () => {
     { scope: formRef }
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (validationErrors[name]) {
@@ -87,6 +89,8 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (formData.website) return;
+
     if (isLikelyBot() || !checkRateLimit() || !validateForm()) {
       setSubmitStatus('error');
       return;
@@ -96,26 +100,25 @@ const ContactForm = () => {
     setSubmitStatus(null);
 
     try {
-      const currentToken = localStorage.getItem('csrfToken');
-      if (!currentToken) throw new Error('Token de seguridad no encontrado');
-
       await submitContactForm({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         company: formData.company,
+        projectType: formData.projectType || undefined,
         message: formData.message,
-        csrfToken: currentToken,
       });
 
+      trackContactFormSubmit(formData.projectType || 'sin_tipo');
       setSubmitStatus('success');
       setFormData({
         name: '',
         email: '',
         phone: '',
         company: '',
+        projectType: '',
         message: '',
-        csrfToken: currentToken,
+        website: '',
       });
     } catch {
       setSubmitStatus('error');
@@ -132,13 +135,13 @@ const ContactForm = () => {
     }`;
 
   return (
-    <section id="contacto" className="section-padding bg-brand-light border-t border-neutral-200">
+    <section className="section-padding bg-brand-light">
       <div className="container-wide">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           <GSAPReveal>
             <SectionHeader
-              label="Contacto"
-              title="Cuéntanos tu idea"
+              label="Información"
+              title="Estamos para ayudarte"
               subtitle="Respondemos en minutos. Sin compromiso."
             />
             <div className="mt-8 space-y-4 text-neutral-500 font-roboto">
@@ -146,18 +149,34 @@ const ContactForm = () => {
                 <span className="text-xs uppercase tracking-widest text-neutral-400 block mb-1">
                   Email
                 </span>
-                contacto@informaticagonzalez.com
+                {siteConfig.email}
               </p>
               <p>
                 <span className="text-xs uppercase tracking-widest text-neutral-400 block mb-1">
                   Teléfono
                 </span>
-                +58 412 366 8513
+                {siteConfig.phone}
               </p>
             </div>
           </GSAPReveal>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6" noValidate>
+            <div
+              className="absolute -left-[9999px] opacity-0 h-0 w-0 overflow-hidden"
+              aria-hidden="true"
+            >
+              <label htmlFor="website">Sitio web</label>
+              <input
+                type="text"
+                id="website"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <input
@@ -166,6 +185,7 @@ const ContactForm = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Nombre completo"
+                  required
                   className={inputClass('name')}
                 />
                 {validationErrors.name && (
@@ -179,6 +199,7 @@ const ContactForm = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Correo electrónico"
+                  required
                   className={inputClass('email')}
                 />
                 {validationErrors.email && (
@@ -192,6 +213,7 @@ const ContactForm = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Teléfono"
+                  required
                   className={inputClass('phone')}
                 />
                 {validationErrors.phone && (
@@ -205,6 +227,7 @@ const ContactForm = () => {
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Empresa"
+                  required
                   className={inputClass('company')}
                 />
                 {validationErrors.company && (
@@ -214,12 +237,29 @@ const ContactForm = () => {
             </div>
 
             <div>
+              <select
+                name="projectType"
+                value={formData.projectType}
+                onChange={handleChange}
+                className={`${inputClass('projectType')} appearance-none cursor-pointer`}
+              >
+                <option value="">Tipo de proyecto (opcional)</option>
+                {PROJECT_TYPES.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Cuéntanos sobre tu proyecto"
                 rows={4}
+                required
                 className={`${inputClass('message')} resize-none`}
               />
               {validationErrors.message && (

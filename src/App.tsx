@@ -17,6 +17,7 @@ const FooterCTA = lazy(() => import('./components/FooterCTA'));
 const Footer = lazy(() => import('./components/Footer'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 const ServiceLanding = lazy(() => import('./pages/ServiceLanding'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-[200px]">
@@ -29,12 +30,15 @@ const getServiceSlugFromPath = (pathname: string) => {
   return match?.[1] ?? null;
 };
 
+const isContactPath = (pathname: string) => pathname === '/contacto' || pathname === '/contacto/';
+
 function App() {
   const [pathname, setPathname] = useState(() => window.location.pathname);
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
 
   const serviceSlug = getServiceSlugFromPath(pathname);
   const servicePage = serviceSlug ? getServicePage(serviceSlug) : null;
+  const contactPage = isContactPath(pathname);
 
   usePageSeo(
     showPrivacyPolicy
@@ -80,6 +84,22 @@ function App() {
     window.history.replaceState(null, '', window.location.pathname);
   };
 
+  if (showPrivacyPolicy) {
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        <PrivacyPolicy onBack={handleHidePrivacy} />
+      </Suspense>
+    );
+  }
+
+  if (contactPage) {
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ContactPage onPrivacyClick={handleShowPrivacy} />
+      </Suspense>
+    );
+  }
+
   if (servicePage) {
     return (
       <Suspense fallback={<LoadingSpinner />}>
@@ -102,30 +122,24 @@ function App() {
 
   return (
     <div className="min-h-screen bg-brand-light">
-      {showPrivacyPolicy ? (
+      <>
+        <Header />
         <Suspense fallback={<LoadingSpinner />}>
-          <PrivacyPolicy onBack={handleHidePrivacy} />
+          <main id="main-content" className="relative isolate">
+            <IntroScrollSection />
+            <Marquee />
+            <WebProjects />
+            <ServicesSection />
+            <CrmIntegrations />
+            <ToolsWeUse />
+            <About />
+            <FaqSection />
+            <FooterCTA />
+          </main>
+          <Footer onPrivacyClick={handleShowPrivacy} />
         </Suspense>
-      ) : (
-        <>
-          <Header />
-          <Suspense fallback={<LoadingSpinner />}>
-            <main id="main-content" className="relative isolate">
-              <IntroScrollSection />
-              <Marquee />
-              <WebProjects />
-              <ServicesSection />
-              <CrmIntegrations />
-              <ToolsWeUse />
-              <About />
-              <FaqSection />
-              <FooterCTA />
-            </main>
-            <Footer onPrivacyClick={handleShowPrivacy} />
-          </Suspense>
-          <WhatsAppButton />
-        </>
-      )}
+        <WhatsAppButton />
+      </>
     </div>
   );
 }
